@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Tela Inicial
 class TelaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,8 @@ class TelaInicial extends StatelessWidget {
           ),
           Column(
             children: [
-              SizedBox(height: 100), // Espaço do topo
-              Center(  // Centralizando o título
+              SizedBox(height: 100),
+              Center(
                 child: Text(
                   'Missão Solidária',
                   style: TextStyle(
@@ -46,7 +47,7 @@ class TelaInicial extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(), // Empurra os botões para baixo
+              Spacer(),
               Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -81,7 +82,7 @@ class TelaInicial extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 50), // Espaço da base
+              SizedBox(height: 50),
             ],
           ),
         ],
@@ -89,7 +90,6 @@ class TelaInicial extends StatelessWidget {
     );
   }
 
-  // Função para criar os botões personalizados
   Widget botaoCustomizado(String texto, VoidCallback onPressed) {
     return SizedBox(
       width: 200,
@@ -110,8 +110,8 @@ class TelaInicial extends StatelessWidget {
           texto,
           style: TextStyle(
             color: Colors.black,
-            fontSize: 20,  // Aumenta o tamanho do texto do botão
-            fontWeight: FontWeight.bold,  // Deixa o texto mais forte
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -119,76 +119,60 @@ class TelaInicial extends StatelessWidget {
   }
 }
 
-class TelaJogar extends StatelessWidget {
+// Widget para os botões superiores reutilizáveis
+class TopBarBotoes extends StatelessWidget {
+  final VoidCallback onVoltar;
+  final VoidCallback onProximo;
+
+  TopBarBotoes({required this.onVoltar, required this.onProximo});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(
-            'assets/images/HistoriaTela_1.png',
-            fit: BoxFit.cover,
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 70.0, left: 5.0, right: 10.0), // margem da tela
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Botões no canto esquerdo
-                  Row(
-                    children: [
-                      botaoJogarCustomizado('Voltar', () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TelaInicial()),
-                        );
-                      }),
-                      SizedBox(width: 10),
-                      botaoJogarCustomizado('Próximo', () {
-
-                      }),
-                    ],
-                  ),
-
-                  // Botão no canto direito
-                  botaoJogarCustomizado('X', () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Sair do Jogo"),
-                          content: Text("Você deseja sair do jogo?"),
-                          actions: [
-                            TextButton(
-                              child: Text("Não"),
-                              onPressed: () {
-                                Navigator.of(context).pop(); // Fecha o diálogo
-                              },
-                            ),
-                            TextButton(
-                              child: Text("Sim"),
-                              onPressed: () {
-                                SystemNavigator.pop(); // Fecha o app
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }),
-                ],
-              ),
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 70.0, left: 5.0, right: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                botaoJogarCustomizado('Voltar', onVoltar),
+                SizedBox(width: 10),
+                botaoJogarCustomizado('Próximo', onProximo),
+              ],
             ),
-          ),
-        ],
+            botaoJogarCustomizado('X', () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Sair do Jogo"),
+                    content: Text("Você deseja sair do jogo?"),
+                    actions: [
+                      TextButton(
+                        child: Text("Não"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text("Sim"),
+                        onPressed: () {
+                          SystemNavigator.pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
 
-  // Botão com estilo personalizado
   Widget botaoJogarCustomizado(String texto, VoidCallback onPressed) {
     return SizedBox(
       width: 100,
@@ -218,19 +202,71 @@ class TelaJogar extends StatelessWidget {
   }
 }
 
+// Tela Jogar
+class TelaJogar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_1.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaInicial()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_2()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
 
+// Tela História 1
+class TelaHistoria_2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_2.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaJogar()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_2()), // Trocar depois pela próxima tela
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-
+// Outras Telas
 class TelaComoJogar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tela Como Jogar'),
-      ),
-      body: Center(
-        child: Text('Você está na tela COMO JOGAR!'),
-      ),
+      appBar: AppBar(title: Text('Tela Como Jogar')),
+      body: Center(child: Text('Você está na tela COMO JOGAR!')),
     );
   }
 }
@@ -239,12 +275,8 @@ class TelaConfig extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tela de Configurações'),
-      ),
-      body: Center(
-        child: Text('Você está na tela de CONFIGURAÇÕES!'),
-      ),
+      appBar: AppBar(title: Text('Tela de Configurações')),
+      body: Center(child: Text('Você está na tela de CONFIGURAÇÕES!')),
     );
   }
 }
@@ -253,12 +285,8 @@ class TelaCreditos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tela de Créditos'),
-      ),
-      body: Center(
-        child: Text('Você está na tela de CRÉDITOS!'),
-      ),
+      appBar: AppBar(title: Text('Tela de Créditos')),
+      body: Center(child: Text('Você está na tela de CRÉDITOS!')),
     );
   }
 }
