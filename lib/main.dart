@@ -28,35 +28,91 @@ class TelaInicial extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min, // centraliza verticalmente
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SegundaTela()),
-                    );
-                  },
-                  child: Text('Jogar'),
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFF5782F),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(
+                            color: Color(0xFFF773A26),
+                            width: 5
+                          ),
+                        ),
+                    ),
+                      onPressed:(){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SegundaTela()),
+                        );
+                      },
+                      child: Text('Jogar'),
+                  ),
                 ),
                 SizedBox(height: 14),
-                ElevatedButton(
-                  onPressed: () {
-                    // ação do segundo botão
-                  },
-                  child: Text('Como Jogar'),
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFF5782F),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Color(0xFFF773A26),
+                          width: 5,
+                        ),
+                      ),
+                    ),
+                      onPressed: (){
+                        //ação do botão Como jogar
+                      },
+                    child: Text('Como Jogar'),
+                  ),
                 ),
                 SizedBox(height: 14),
-                ElevatedButton(
-                  onPressed: () {
-                    // ação do terceiro botão
-                  },
-                  child: Text('Configurações'),
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFF5782F),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Color(0xFFF773A26),
+                          width: 5,
+                        )
+                      ),
+                    ),
+                      onPressed:() {
+                        //ação do botão Configurações
+                      },
+                      child: Text("Configurações"),
+                  ),
                 ),
                 SizedBox(height: 14),
-                ElevatedButton(
-                  onPressed: () {
-                    // ação do quarto botão
-                  },
-                  child: Text('Créditos'),
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFF5782F),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Color(0xFFF773A26),
+                          width: 5,
+                        ),
+                      ),
+                    ),
+                      onPressed: (){
+                        //ação do botão Créditos
+                      },
+                      child: Text('Créditos'),
+                  ),
                 ),
               ],
             ),
