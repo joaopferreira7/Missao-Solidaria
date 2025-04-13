@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: TelaInicial(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -24,107 +25,90 @@ class TelaInicial extends StatelessWidget {
             'assets/images/TelaInicial.png',
             fit: BoxFit.cover,
           ),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // centraliza verticalmente
-              children: [
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFF5782F),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
-                            color: Color(0xFFF773A26),
-                            width: 5
-                          ),
-                        ),
-                    ),
-                      onPressed:(){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SegundaTela()),
-                        );
-                      },
-                      child: Text('Jogar'),
-                  ),
-                ),
-                SizedBox(height: 14),
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF5782F),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: Color(0xFFF773A26),
-                          width: 5,
-                        ),
+          Column(
+            children: [
+              SizedBox(height: 100), // Espaço do topo
+              Center(  // Centralizando o título
+                child: Text(
+                  'Missão Solidária',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 8.0,
+                        color: Colors.black87,
+                        offset: Offset(2, 2),
                       ),
-                    ),
-                      onPressed: (){
-                        //ação do botão Como jogar
-                      },
-                    child: Text('Como Jogar'),
+                    ],
                   ),
                 ),
-                SizedBox(height: 14),
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF5782F),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: Color(0xFFF773A26),
-                          width: 5,
-                        )
-                      ),
-                    ),
-                      onPressed:() {
-                        //ação do botão Configurações
-                      },
-                      child: Text("Configurações"),
-                  ),
+              ),
+              Spacer(), // Empurra os botões para baixo
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    botaoCustomizado('Jogar', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SegundaTela()),
+                      );
+                    }),
+                    SizedBox(height: 14),
+                    botaoCustomizado('Como Jogar', () {
+                      // ação do botão Como jogar
+                    }),
+                    SizedBox(height: 14),
+                    botaoCustomizado('Configurações', () {
+                      // ação do botão Configurações
+                    }),
+                    SizedBox(height: 14),
+                    botaoCustomizado('Créditos', () {
+                      // ação do botão Créditos
+                    }),
+                  ],
                 ),
-                SizedBox(height: 14),
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF5782F),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: Color(0xFFF773A26),
-                          width: 5,
-                        ),
-                      ),
-                    ),
-                      onPressed: (){
-                        //ação do botão Créditos
-                      },
-                      child: Text('Créditos'),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: 50), // Espaço da base
+            ],
           ),
         ],
       ),
     );
   }
+
+  // Função para criar os botões personalizados
+  Widget botaoCustomizado(String texto, VoidCallback onPressed) {
+    return SizedBox(
+      width: 200,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFFF5782F),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(
+              color: Color(0xFFF773A26),
+              width: 5,
+            ),
+          ),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          texto,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,  // Aumenta o tamanho do texto do botão
+            fontWeight: FontWeight.bold,  // Deixa o texto mais forte
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-
-// Essa é uma estrutura básica para a SegundaTela
 class SegundaTela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
