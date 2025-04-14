@@ -450,9 +450,56 @@ class TelaHistoria_7 extends StatelessWidget {
             onProximo: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TelaHistoria_7()),
+                MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
               );
             },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TelaEscolherJogo extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/TelaEscolherJogo.png', fit: BoxFit.cover,),
+          Align(
+              alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 55.0, left: 10.0),
+              child: SizedBox(
+                width: 110,
+                height: 40,
+                child: ElevatedButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFE4C7A3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Voltar',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Color(0xFF333333)
+                      ),
+                    ),
+                  )
+                ),
+              ),
+            ),
           ),
         ],
       ),
