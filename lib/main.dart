@@ -85,6 +85,59 @@ class TelaInicial extends StatelessWidget {
               SizedBox(height: 50),
             ],
           ),
+          Positioned(
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Sair do Jogo"),
+                        content: Text("Você deseja sair do jogo?"),
+                        actions: [
+                          TextButton(
+                            child: Text("Não"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text("Sim"),
+                            onPressed: () {
+                              SystemNavigator.pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFF5782F),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFFF773A26), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: Center(
+                  child: Text(
+                    'X',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: Color(0xFF333333),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -174,15 +227,17 @@ class TopBarBotoes extends StatelessWidget {
   }
 
   Widget botaoJogarCustomizado(String texto, VoidCallback onPressed) {
+    bool isBotaoX = texto == 'X';
+
     return SizedBox(
-      width: 100,
-      height: 40,
+      width: isBotaoX ? 45 : 100,
+      height: isBotaoX ? 45 : 40,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFFE4C7A3),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(isBotaoX ? 100 : 5),
             side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
           ),
           padding: EdgeInsets.zero,
@@ -192,7 +247,7 @@ class TopBarBotoes extends StatelessWidget {
             texto,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: isBotaoX ? 22 : 20,
               color: Color(0xFF333333),
             ),
           ),
@@ -202,7 +257,7 @@ class TopBarBotoes extends StatelessWidget {
   }
 }
 
-// Tela Jogar
+// Telas da história
 class TelaJogar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -250,7 +305,7 @@ class TelaHistoria_2 extends StatelessWidget {
             onProximo: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TelaHistoria_3()), // Trocar depois pela próxima tela
+                MaterialPageRoute(builder: (context) => TelaHistoria_3()),
               );
             },
           ),
@@ -261,7 +316,7 @@ class TelaHistoria_2 extends StatelessWidget {
 }
 
 // Tela 3 História
-class TelaHistoria_3 extends StatelessWidget{
+class TelaHistoria_3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -279,7 +334,7 @@ class TelaHistoria_3 extends StatelessWidget{
             onProximo: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TelaHistoria_4()), // Trocar depois pela próxima tela
+                MaterialPageRoute(builder: (context) => TelaHistoria_4()),
               );
             },
           ),
@@ -290,7 +345,7 @@ class TelaHistoria_3 extends StatelessWidget{
 }
 
 // Tela 4 História
-class TelaHistoria_4 extends StatelessWidget{
+class TelaHistoria_4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -308,7 +363,7 @@ class TelaHistoria_4 extends StatelessWidget{
             onProximo: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TelaHistoria_5()), // Trocar depois pela próxima tela
+                MaterialPageRoute(builder: (context) => TelaHistoria_5()),
               );
             },
           ),
@@ -318,8 +373,8 @@ class TelaHistoria_4 extends StatelessWidget{
   }
 }
 
-//Tela 5 Historia
-class TelaHistoria_5 extends StatelessWidget{
+// Tela 5 História
+class TelaHistoria_5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -328,13 +383,13 @@ class TelaHistoria_5 extends StatelessWidget{
         children: [
           Image.asset('assets/images/HistoriaTela_5.png', fit: BoxFit.cover),
           TopBarBotoes(
-            onVoltar: (){
+            onVoltar: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => TelaHistoria_4()),
               );
             },
-            onProximo: (){
+            onProximo: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => TelaHistoria_6()),
@@ -347,15 +402,15 @@ class TelaHistoria_5 extends StatelessWidget{
   }
 }
 
-//Tela 6 Historia
-class TelaHistoria_6 extends StatelessWidget{
+// Tela 6 História
+class TelaHistoria_6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_6.png', fit: BoxFit.cover,),
+          Image.asset('assets/images/HistoriaTela_6.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -363,7 +418,7 @@ class TelaHistoria_6 extends StatelessWidget{
                 MaterialPageRoute(builder: (context) => TelaHistoria_5()),
               );
             },
-            onProximo: (){
+            onProximo: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => TelaHistoria_7()),
@@ -376,15 +431,15 @@ class TelaHistoria_6 extends StatelessWidget{
   }
 }
 
-//Tela 7 Historia
-class TelaHistoria_7 extends StatelessWidget{
+// Tela 7 História
+class TelaHistoria_7 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_7.png', fit: BoxFit.cover,),
+          Image.asset('assets/images/HistoriaTela_7.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -392,7 +447,7 @@ class TelaHistoria_7 extends StatelessWidget{
                 MaterialPageRoute(builder: (context) => TelaHistoria_6()),
               );
             },
-            onProximo: (){
+            onProximo: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => TelaHistoria_7()),
