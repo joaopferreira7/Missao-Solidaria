@@ -501,6 +501,39 @@ class TelaEscolherJogo extends StatelessWidget{
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+                padding: const EdgeInsets.only(top: 55, right: 10),
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: ElevatedButton(
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFE4C7A3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                ),
+              ),
+                    child: Center(
+                      child: Text(
+                        'X',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Color(0xFF333333)
+                        ),
+                      ),
+                    )
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
