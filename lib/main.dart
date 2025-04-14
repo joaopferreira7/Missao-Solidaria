@@ -1,122 +1,437 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: TelaInicial(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+// Tela Inicial
+class TelaInicial extends StatelessWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            'assets/images/TelaInicial.png',
+            fit: BoxFit.cover,
+          ),
+          Column(
+            children: [
+              SizedBox(height: 100),
+              Center(
+                child: Text(
+                  'Missão Solidária',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 8.0,
+                        color: Colors.black87,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(),
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    botaoCustomizado('Jogar', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TelaJogar()),
+                      );
+                    }),
+                    SizedBox(height: 14),
+                    botaoCustomizado('Como Jogar', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TelaComoJogar()),
+                      );
+                    }),
+                    SizedBox(height: 14),
+                    botaoCustomizado('Configurações', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TelaConfig()),
+                      );
+                    }),
+                    SizedBox(height: 14),
+                    botaoCustomizado('Créditos', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TelaCreditos()),
+                      );
+                    }),
+                  ],
+                ),
+              ),
+              SizedBox(height: 50),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget botaoCustomizado(String texto, VoidCallback onPressed) {
+    return SizedBox(
+      width: 200,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFFF5782F),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(
+              color: Color(0xFFF773A26),
+              width: 5,
+            ),
+          ),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          texto,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+// Widget para os botões superiores reutilizáveis
+class TopBarBotoes extends StatelessWidget {
+  final VoidCallback onVoltar;
+  final VoidCallback onProximo;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  TopBarBotoes({required this.onVoltar, required this.onProximo});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 70.0, left: 5.0, right: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                botaoJogarCustomizado('Voltar', onVoltar),
+                SizedBox(width: 10),
+                botaoJogarCustomizado('Próximo', onProximo),
+              ],
             ),
+            botaoJogarCustomizado('X', () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Sair do Jogo"),
+                    content: Text("Você deseja sair do jogo?"),
+                    actions: [
+                      TextButton(
+                        child: Text("Não"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text("Sim"),
+                        onPressed: () {
+                          SystemNavigator.pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget botaoJogarCustomizado(String texto, VoidCallback onPressed) {
+    return SizedBox(
+      width: 100,
+      height: 40,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFFE4C7A3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+            side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+          ),
+          padding: EdgeInsets.zero,
+        ),
+        child: Center(
+          child: Text(
+            texto,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Color(0xFF333333),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Tela Jogar
+class TelaJogar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_1.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaInicial()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_2()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Tela 2 História
+class TelaHistoria_2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_2.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaJogar()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_3()), // Trocar depois pela próxima tela
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Tela 3 História
+class TelaHistoria_3 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_3.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_2()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_4()), // Trocar depois pela próxima tela
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Tela 4 História
+class TelaHistoria_4 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_4.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_3()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_5()), // Trocar depois pela próxima tela
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//Tela 5 Historia
+class TelaHistoria_5 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_5.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_4()),
+              );
+            },
+            onProximo: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_6()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//Tela 6 Historia
+class TelaHistoria_6 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_6.png', fit: BoxFit.cover,),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_5()),
+              );
+            },
+            onProximo: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_7()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//Tela 7 Historia
+class TelaHistoria_7 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_7.png', fit: BoxFit.cover,),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_6()),
+              );
+            },
+            onProximo: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_7()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Outras Telas
+class TelaComoJogar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Tela Como Jogar')),
+      body: Center(child: Text('Você está na tela COMO JOGAR!')),
+    );
+  }
+}
+
+class TelaConfig extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Tela de Configurações')),
+      body: Center(child: Text('Você está na tela de CONFIGURAÇÕES!')),
+    );
+  }
+}
+
+class TelaCreditos extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Tela de Créditos')),
+      body: Center(child: Text('Você está na tela de CRÉDITOS!')),
     );
   }
 }
