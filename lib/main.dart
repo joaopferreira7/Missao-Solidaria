@@ -231,7 +231,7 @@ class TelaJogar extends StatelessWidget {
   }
 }
 
-// Tela História 1
+// Tela 2 História
 class TelaHistoria_2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -250,7 +250,152 @@ class TelaHistoria_2 extends StatelessWidget {
             onProximo: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TelaHistoria_2()), // Trocar depois pela próxima tela
+                MaterialPageRoute(builder: (context) => TelaHistoria_3()), // Trocar depois pela próxima tela
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Tela 3 História
+class TelaHistoria_3 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_3.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_2()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_4()), // Trocar depois pela próxima tela
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Tela 4 História
+class TelaHistoria_4 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_4.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_3()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_5()), // Trocar depois pela próxima tela
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//Tela 5 Historia
+class TelaHistoria_5 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_5.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_4()),
+              );
+            },
+            onProximo: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_6()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//Tela 6 Historia
+class TelaHistoria_6 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_6.png', fit: BoxFit.cover,),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_5()),
+              );
+            },
+            onProximo: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_7()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//Tela 7 Historia
+class TelaHistoria_7 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_7.png', fit: BoxFit.cover,),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_6()),
+              );
+            },
+            onProximo: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_7()),
               );
             },
           ),
