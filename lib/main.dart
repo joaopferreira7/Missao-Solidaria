@@ -8,10 +8,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TelaInicial(),
-      debugShowCheckedModeBanner: false,
-    );
+    return MaterialApp(home: TelaInicial(), debugShowCheckedModeBanner: false);
   }
 }
 
@@ -23,10 +20,7 @@ class TelaInicial extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/images/TelaInicial.png',
-            fit: BoxFit.cover,
-          ),
+          Image.asset('assets/images/TelaInicial.png', fit: BoxFit.cover),
           Column(
             children: [
               SizedBox(height: 100),
@@ -62,7 +56,9 @@ class TelaInicial extends StatelessWidget {
                     botaoCustomizado('Como Jogar', () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TelaComoJogar()),
+                        MaterialPageRoute(
+                          builder: (context) => TelaComoJogar(),
+                        ),
                       );
                     }),
                     SizedBox(height: 14),
@@ -152,10 +148,7 @@ class TelaInicial extends StatelessWidget {
           backgroundColor: Color(0xFFF5782F),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(
-              color: Color(0xFFF773A26),
-              width: 5,
-            ),
+            side: BorderSide(color: Color(0xFFF773A26), width: 5),
           ),
         ),
         onPressed: onPressed,
@@ -460,17 +453,55 @@ class TelaHistoria_7 extends StatelessWidget {
   }
 }
 
-class TelaEscolherJogo extends StatelessWidget {
+class TelaEscolherJogo extends StatefulWidget {
+  @override
+  _TelaEscolherJogoState createState() => _TelaEscolherJogoState();
+}
+
+class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
+  int? jogoSelecionado;
+
+  void selecionarJogo(int numeroDoJogo) {
+    setState(() {
+      jogoSelecionado = numeroDoJogo;
+    });
+  }
+
+  void confirmarSelecao() {
+    if (jogoSelecionado == null) {
+      ScaffoldMessenger.of(context);
+      return;
+    }
+
+    Widget tela;
+
+    switch (jogoSelecionado) {
+      case 1:
+        tela = TelaJogo1();
+        break;
+      case 2:
+        tela = TelaJogo2();
+        break;
+      case 3:
+        tela = TelaJogo3();
+        break;
+      case 4:
+        tela = TelaJogo4();
+        break;
+      default:
+        return;
+    }
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => tela));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/images/TelaEscolherJogo.png',
-            fit: BoxFit.cover,
-          ),
+          Image.asset('assets/images/TelaEscolherJogo.png', fit: BoxFit.cover),
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
@@ -513,7 +544,30 @@ class TelaEscolherJogo extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Sair do Jogo'),
+                          content: Text('Você deseja sair do jogo?'),
+                          actions: [
+                            TextButton(
+                              child: Text('Não'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Sim'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                SystemNavigator.pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFE4C7A3),
@@ -545,26 +599,18 @@ class TelaEscolherJogo extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildBotaoJogar('assets/images/Jogo1.png', () {
-                        // ação do Jogo 1
-                      }),
+                      _buildBotaoJogar('assets/images/Jogo1.png', 1),
                       SizedBox(width: 50),
-                      _buildBotaoJogar('assets/images/Jogo2.png', () {
-                        // ação do Jogo 2
-                      }),
+                      _buildBotaoJogar('assets/images/Jogo2.png', 2),
                     ],
                   ),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildBotaoJogar('assets/images/Jogo3.png', () {
-                        // ação do Jogo 3
-                      }),
+                      _buildBotaoJogar('assets/images/Jogo3.png', 3),
                       SizedBox(width: 50),
-                      _buildBotaoJogar('assets/images/Jogo4.png', () {
-                        // ação do Jogo 4
-                      }),
+                      _buildBotaoJogar('assets/images/Jogo4.png', 4),
                     ],
                   ),
                 ],
@@ -579,9 +625,7 @@ class TelaEscolherJogo extends StatelessWidget {
                 width: 160,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // ação do botão Confirmar
-                  },
+                  onPressed: confirmarSelecao,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFE4C7A3),
                     shape: RoundedRectangleBorder(
@@ -606,25 +650,27 @@ class TelaEscolherJogo extends StatelessWidget {
     );
   }
 
-  Widget _buildBotaoJogar(String imagePath, VoidCallback onPressed) {
+  Widget _buildBotaoJogar(String imagePath, int numeroDoJogo) {
     return SizedBox(
       width: 100,
-      height: 120,
+      height: 110,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () => selecionarJogo(numeroDoJogo),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFFE4C7A3),
+          backgroundColor: jogoSelecionado == numeroDoJogo
+              ? Colors.green[300]
+              : Color(0xFFE4C7A3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
           ),
           padding: EdgeInsets.zero,
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset(imagePath, fit: BoxFit.contain),
           ),
         ),
       ),
@@ -632,6 +678,46 @@ class TelaEscolherJogo extends StatelessWidget {
   }
 }
 
+// Telas de exemplo (substitua com os jogos reais)
+class TelaJogo1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Jogo 1')),
+      body: Center(child: Text('Tela do Jogo 1')),
+    );
+  }
+}
+
+class TelaJogo2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Jogo 2')),
+      body: Center(child: Text('Tela do Jogo 2')),
+    );
+  }
+}
+
+class TelaJogo3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Jogo 3')),
+      body: Center(child: Text('Tela do Jogo 3')),
+    );
+  }
+}
+
+class TelaJogo4 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Jogo 4')),
+      body: Center(child: Text('Tela do Jogo 4')),
+    );
+  }
+}
 
 // Outras Telas
 class TelaComoJogar extends StatelessWidget {
