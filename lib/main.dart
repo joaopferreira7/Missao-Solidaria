@@ -521,7 +521,7 @@ class TelaEscolherJogo extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50),
                       side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
                     ),
-                    padding: EdgeInsets.zero, // remove padding interno
+                    padding: EdgeInsets.zero,
                   ),
                   child: Text(
                     'X',
@@ -536,16 +536,52 @@ class TelaEscolherJogo extends StatelessWidget {
             ),
           ),
           Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 170),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildBotaoJogar('assets/images/Jogo1.png', () {
+                        // ação do Jogo 1
+                      }),
+                      SizedBox(width: 50),
+                      _buildBotaoJogar('assets/images/Jogo2.png', () {
+                        // ação do Jogo 2
+                      }),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildBotaoJogar('assets/images/Jogo3.png', () {
+                        // ação do Jogo 3
+                      }),
+                      SizedBox(width: 50),
+                      _buildBotaoJogar('assets/images/Jogo4.png', () {
+                        // ação do Jogo 4
+                      }),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-                padding: const EdgeInsets.only(bottom: 40),
+              padding: const EdgeInsets.only(bottom: 40),
               child: SizedBox(
                 width: 160,
                 height: 60,
                 child: ElevatedButton(
-                    onPressed: () {
-                      //função de confirmar
-                    },
+                  onPressed: () {
+                    // ação do botão Confirmar
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFE4C7A3),
                     shape: RoundedRectangleBorder(
@@ -569,7 +605,33 @@ class TelaEscolherJogo extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildBotaoJogar(String imagePath, VoidCallback onPressed) {
+    return SizedBox(
+      width: 100,
+      height: 120,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFFE4C7A3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+          ),
+          padding: EdgeInsets.zero,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
 }
+
 
 // Outras Telas
 class TelaComoJogar extends StatelessWidget {
