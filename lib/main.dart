@@ -460,25 +460,28 @@ class TelaHistoria_7 extends StatelessWidget {
   }
 }
 
-class TelaEscolherJogo extends StatelessWidget{
+class TelaEscolherJogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/TelaEscolherJogo.png', fit: BoxFit.cover,),
+          Image.asset(
+            'assets/images/TelaEscolherJogo.png',
+            fit: BoxFit.cover,
+          ),
           Align(
-              alignment: Alignment.topLeft,
+            alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.only(top: 55.0, left: 10.0),
               child: SizedBox(
                 width: 110,
                 height: 40,
                 child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFE4C7A3),
                     shape: RoundedRectangleBorder(
@@ -491,12 +494,12 @@ class TelaEscolherJogo extends StatelessWidget{
                       'Voltar',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color(0xFF333333)
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Color(0xFF333333),
                       ),
                     ),
-                  )
+                  ),
                 ),
               ),
             ),
@@ -504,32 +507,60 @@ class TelaEscolherJogo extends StatelessWidget{
           Align(
             alignment: Alignment.topRight,
             child: Padding(
-                padding: const EdgeInsets.only(top: 55, right: 10),
+              padding: const EdgeInsets.only(top: 55, right: 10),
               child: SizedBox(
-                width: 50,
-                height: 50,
+                width: 45,
+                height: 45,
                 child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFE4C7A3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFE4C7A3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                    ),
+                    padding: EdgeInsets.zero, // remove padding interno
+                  ),
+                  child: Text(
+                    'X',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Color(0xFF333333),
+                    ),
+                  ),
                 ),
               ),
-                    child: Center(
-                      child: Text(
-                        'X',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Color(0xFF333333)
-                        ),
-                      ),
-                    )
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+              child: SizedBox(
+                width: 160,
+                height: 60,
+                child: ElevatedButton(
+                    onPressed: () {
+                      //função de confirmar
+                    },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFE4C7A3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                    ),
+                  ),
+                  child: Text(
+                    'Confirmar',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Color(0xFF333333),
+                    ),
+                  ),
                 ),
               ),
             ),
