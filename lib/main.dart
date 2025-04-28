@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'falling_game.dart';
 
 void main() {
   runApp(MyApp());
@@ -693,8 +694,17 @@ class TelaJogo2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Jogo 2')),
-      body: Center(child: Text('Tela do Jogo 2')),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Iniciar Mini Game'),
+          onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const GameScreen()),
+            );
+          },
+        ),
+      ),
     );
   }
 }
