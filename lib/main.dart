@@ -679,6 +679,7 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
   }
 }
 
+
 // Telas de exemplo (substitua com os jogos reais)
 class TelaJogo1 extends StatelessWidget {
   @override
