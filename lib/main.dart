@@ -695,20 +695,73 @@ class TelaJogo2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Iniciar Mini Game'),
-          onPressed: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const GameScreen()),
-            );
-          },
-        ),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/jogoRoupas/fundo_jogoRoupas.jpeg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 40,
+            right: -5,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE4C7A3),
+                shape: const CircleBorder(
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                ),
+              ),
+              child: const Icon(Icons.close, color: Color(0xFF333333)),
+            ),
+          ),
+
+          // Botão iniciar no centro inferior
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 100),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const GameScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF333333),
+                  ),
+                ),
+                child: const Text('Iniciar Mini Game'),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+
+
 
 class TelaJogo3 extends StatelessWidget {
   @override
