@@ -721,7 +721,7 @@ class TelaJogo2 extends StatelessWidget {
                   side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
                 ),
               ),
-              child: const Icon(Icons.close, color: Color(0xFF333333)),
+              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
             ),
           ),
 
@@ -747,10 +747,14 @@ class TelaJogo2 extends StatelessWidget {
                   textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF333333),
                   ),
                 ),
-                child: const Text('Iniciar Mini Game'),
+                child: const Text(
+                  'Iniciar Mini Game',
+                  style: TextStyle(
+                    color: Color(0xFF333333), // Aqui você escolhe a cor desejada
+                  ),
+                ),
               ),
             ),
           ),
@@ -759,9 +763,6 @@ class TelaJogo2 extends StatelessWidget {
     );
   }
 }
-
-
-
 
 class TelaJogo3 extends StatelessWidget {
   @override
