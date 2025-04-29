@@ -2,16 +2,20 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-// Modelo do objeto que cai
 class FallingObject {
   final double left;
   final int id;
   final String imagePath;
+  final bool isGood;
 
-  FallingObject({required this.left, required this.id, required this.imagePath});
+  FallingObject({
+    required this.left,
+    required this.id,
+    required this.imagePath,
+    required this.isGood,
+  });
 }
 
-// Tela principal do mini game
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);
 
@@ -23,16 +27,23 @@ class _GameScreenState extends State<GameScreen> {
   List<FallingObject> objects = [];
   final Random random = Random();
   int _objectId = 0;
-  int score = 0; // Nova variável de pontuação
+  int score = 0;
 
-  // Lista de imagens possíveis
   final List<String> objectImages = [
+    // Roupas boas
     'assets/images/jogoRoupas/Calça_marrom_boa.png',
     'assets/images/jogoRoupas/Calça_azulClaro_boa.png',
     'assets/images/jogoRoupas/Calça_azulEscuro_boa.png',
     'assets/images/jogoRoupas/Calça_cinzaClaro_boa.png',
     'assets/images/jogoRoupas/Calça_cinzaEscuro_boa.png',
     'assets/images/jogoRoupas/Calça_preta_boa.png',
+    // Roupas ruins
+    'assets/images/jogoRoupas/Camisa_laranja_ruim.png',
+    'assets/images/jogoRoupas/Camisa_marromListrada_ruim.png',
+    'assets/images/jogoRoupas/Camisa_preta_ruim.png',
+    'assets/images/jogoRoupas/Camisa_verdeListrada_ruim.png',
+    'assets/images/jogoRoupas/Camisa_branca_ruim.png',
+    'assets/images/jogoRoupas/Camisa_azul_ruim.png',
   ];
 
   Timer? spawnTimer;
@@ -52,18 +63,29 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _addFallingObject() {
+    final String path = objectImages[random.nextInt(objectImages.length)];
+    final bool isGood = path.contains('_boa');
+
     setState(() {
       objects.add(FallingObject(
-        left: random.nextDouble() * MediaQuery.of(context).size.width * 0.8, // posição horizontal
+        left: random.nextDouble() * MediaQuery.of(context).size.width * 0.8,
         id: _objectId++,
-        imagePath: objectImages[random.nextInt(objectImages.length)], // imagem aleatória
+        imagePath: path,
+        isGood: isGood,
       ));
     });
   }
 
   void _incrementScore(int id) {
+    final tapped = objects.firstWhere((o) => o.id == id);
+
     setState(() {
-      score++;
+      if (tapped.isGood) {
+        score++;
+      } else {
+        score = max(0, score - 1); // perde ponto se clicar em roupa ruim
+      }
+
       objects.removeWhere((o) => o.id == id);
     });
   }
@@ -80,7 +102,7 @@ class _GameScreenState extends State<GameScreen> {
         ),
         child: Stack(
           children: [
-            // Itens caindo
+            // Objetos caindo
             ...objects.map((obj) {
               return FallingWidget(
                 key: ValueKey(obj.id),
@@ -95,7 +117,7 @@ class _GameScreenState extends State<GameScreen> {
               );
             }).toList(),
 
-            // HUD de Pontuação e Botão
+            // Pontuação e botão
             Positioned(
               top: 40,
               left: 20,
@@ -140,7 +162,6 @@ class _GameScreenState extends State<GameScreen> {
   }
 }
 
-// Widget da imagem caindo
 class FallingWidget extends StatefulWidget {
   final double left;
   final String imagePath;
@@ -197,8 +218,8 @@ class _FallingWidgetState extends State<FallingWidget> with SingleTickerProvider
             onTap: widget.onTap,
             child: Image.asset(
               widget.imagePath,
-              width: 160,
-              height: 160,
+              width: 180,
+              height: 180,
             ),
           ),
         );
