@@ -6,7 +6,7 @@ class FallingObject {
   final double left;
   final int id;
   final String imagePath;
-  final bool isGood; // Define se é roupa boa ou ruim
+  final bool isGood;
 
   FallingObject({
     required this.left,
@@ -34,24 +34,40 @@ class _GameScreenState extends State<GameScreen> {
   Timer? gameTimer;
   bool gameOver = false;
 
-  // Roupas boas
   final List<String> goodClothes = [
+    //Calças Masc boas
     'assets/images/jogoRoupas/Calça_marrom_boa.png',
     'assets/images/jogoRoupas/Calça_azulClaro_boa.png',
     'assets/images/jogoRoupas/Calça_azulEscuro_boa.png',
     'assets/images/jogoRoupas/Calça_cinzaClaro_boa.png',
     'assets/images/jogoRoupas/Calça_cinzaEscuro_boa.png',
     'assets/images/jogoRoupas/Calça_preta_boa.png',
+
+    //Camisas Masc boas
+    'assets/images/jogoRoupas/Camisa_azul_boa.png',
+    'assets/images/jogoRoupas/Camisa_branca_boa.png',
+    'assets/images/jogoRoupas/Camisa_laranja_boa.png',
+    'assets/images/jogoRoupas/Camisa_marromListrada_boa.png',
+    'assets/images/jogoRoupas/Camisa_preta_boa.png',
+    'assets/images/jogoRoupas/Camisa_verdeListrada_boa.png',
   ];
 
-  // Roupas ruins
   final List<String> badClothes = [
+    //Camisas Masc ruins
     'assets/images/jogoRoupas/Camisa_laranja_ruim.png',
     'assets/images/jogoRoupas/Camisa_marromListrada_ruim.png',
     'assets/images/jogoRoupas/Camisa_preta_ruim.png',
     'assets/images/jogoRoupas/Camisa_verdeListrada_ruim.png',
     'assets/images/jogoRoupas/Camisa_branca_ruim.png',
     'assets/images/jogoRoupas/Camisa_azul_ruim.png',
+
+    //Shorts Masc ruins
+    'assets/images/jogoRoupas/Shorts_azul_ruim.png',
+    'assets/images/jogoRoupas/Shorts_bege_ruim.png',
+    'assets/images/jogoRoupas/Shorts_branco_ruim.png',
+    'assets/images/jogoRoupas/Shorts_cinza_ruim.png',
+    'assets/images/jogoRoupas/Shorts_marrom_ruim.png',
+    'assets/images/jogoRoupas/Shorts_preto_ruim.png',
   ];
 
   @override
@@ -115,10 +131,20 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
-  void _removeBadByTap(int id) {
+  void _handleTapObject(FallingObject obj) {
     setState(() {
-      objects.removeWhere((o) => o.id == id);
-      score += 2;
+      objects.removeWhere((o) => o.id == obj.id);
+
+      if (obj.isGood) {
+        score -= 1;
+        badPassed++;
+      } else {
+        score += 2;
+      }
+
+      if (badPassed >= 5) {
+        _endGame();
+      }
     });
   }
 
@@ -163,14 +189,12 @@ class _GameScreenState extends State<GameScreen> {
                 key: ValueKey(obj.id),
                 left: obj.left,
                 imagePath: obj.imagePath,
-                onTap: obj.isGood
-                    ? null
-                    : () => _removeBadByTap(obj.id), // só clica em roupas ruins
+                onTap: () => _handleTapObject(obj),
                 onEnd: () => _handleObjectEnd(obj),
               );
             }).toList(),
 
-            // HUD de pontuação
+            // HUD
             Positioned(
               top: 50,
               left: 10,
@@ -184,6 +208,7 @@ class _GameScreenState extends State<GameScreen> {
                 ],
               ),
             ),
+
             // Botão sair
             Positioned(
               top: 40,
@@ -191,12 +216,12 @@ class _GameScreenState extends State<GameScreen> {
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFE4C7A3),
+                  backgroundColor: const Color(0xFFE4C7A3),
                   shape: const CircleBorder(
                     side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
                   ),
                 ),
-                child: const Icon(Icons.close, color: Color(0xFF333333)),
+                child: const Icon(Icons.close, color: Color(0xFF333333), size: 36),
               ),
             ),
           ],
@@ -221,7 +246,7 @@ class _GameScreenState extends State<GameScreen> {
 class FallingWidget extends StatefulWidget {
   final double left;
   final String imagePath;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
   final VoidCallback onEnd;
 
   const FallingWidget({
