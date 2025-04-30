@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class FallingObject {
   final double left;
@@ -17,14 +18,14 @@ class FallingObject {
   });
 }
 
-class GameScreen extends StatefulWidget {
-  const GameScreen({Key? key}) : super(key: key);
+class GameFallingScreen extends StatefulWidget {
+  const GameFallingScreen({Key? key}) : super(key: key);
 
   @override
   _GameScreenState createState() => _GameScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
+class _GameScreenState extends State<GameFallingScreen> with TickerProviderStateMixin {
   List<FallingObject> objects = [];
   final Random random = Random();
   int _objectId = 0;
@@ -38,9 +39,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   int currentPhase = 0;
   List<Phase> phases = [
-    Phase(duration: 60, maxErrors: 5, fallSpeed: 2), // Fase 1
-    Phase(duration: 50, maxErrors: 3, fallSpeed: 1), // Fase 2
-    Phase(duration: 30, maxErrors: 2, fallSpeed: 0.5), // Fase 3
+    Phase(duration: 60, maxErrors: 5, fallSpeed: 0.9),
+    Phase(duration: 50, maxErrors: 3, fallSpeed: 0.6),
+    Phase(duration: 30, maxErrors: 2, fallSpeed: 0.3),
   ];
 
   final List<String> goodClothes = [
@@ -116,6 +117,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   }
 
   void _endPhase({required bool lost}) {
+    _pauseGame();
     spawnTimer?.cancel();
     gameTimer?.cancel();
 
@@ -129,23 +131,28 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   }
 
   void _showVictoryDialog() {
+    _pauseGame(); // Pausa o jogo e os objetos
     showDialog(
       context: context,
+      barrierDismissible: false, // Evita fechar acidentalmente
       builder: (_) => AlertDialog(
         title: const Text('Parabéns!'),
         content: Text('Você completou a fase ${currentPhase + 1}!\nPontuação: $score'),
         actions: [
           TextButton(
             onPressed: () {
-              setState(() {
-                currentPhase++;
-                score = 0;
-                badPassed = 0;
-                remainingTime = phases[currentPhase].duration;
-                objects.clear();
+              Navigator.pop(context); // Fecha o dialog
+              Future.delayed(const Duration(milliseconds: 100), () {
+                setState(() {
+                  currentPhase++;
+                  score = 0;
+                  badPassed = 0;
+                  remainingTime = phases[currentPhase].duration;
+                  objects.clear();
+                });
+                _resumeGame(); // Retoma o jogo
+                _startPhase(); // Inicia a próxima fase
               });
-              Navigator.pop(context);
-              _startPhase();
             },
             child: const Text('Próxima Fase'),
           ),
@@ -155,6 +162,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   }
 
   void _showGameOverDialog() {
+    _pauseGame();
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -163,10 +171,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // Primeiro fecha o diálogo
+              Navigator.pop(context);
               Future.delayed(const Duration(milliseconds: 100), () {
                 setState(() {
-                  // Reinicia a fase atual
                   score = 0;
                   badPassed = 0;
                   remainingTime = phases[currentPhase].duration;
@@ -179,16 +186,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // Fecha o diálogo
-              Navigator.pop(context); // Volta ao menu
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+              );
             },
             child: const Text('Sair'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Fecha apenas o alerta
-            },
-            child: const Text('Ok'),
           ),
         ],
       ),
@@ -281,7 +285,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               controller: obj.controller,
               onTap: () => _handleTapObject(obj),
             )),
-
             Positioned(
               top: 50,
               left: 10,
@@ -295,7 +298,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 ],
               ),
             ),
-
             Positioned(
               top: 40,
               right: -5,
@@ -320,7 +322,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                             child: const Text('Sim'),
                             onPressed: () {
                               Navigator.of(context).pop();
-                              Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+                              );
                             },
                           ),
                         ],

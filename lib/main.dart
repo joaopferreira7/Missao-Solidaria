@@ -734,7 +734,7 @@ class TelaJogo2 extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const GameScreen()),
+                    MaterialPageRoute(builder: (context) => const GameFallingScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
