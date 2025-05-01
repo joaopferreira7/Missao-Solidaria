@@ -10,12 +10,12 @@ class GameSelectFoodScreen extends StatefulWidget {
 
 class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   int pontos = 0;
-  int tempoRestante = 30;
+  int tempoRestante = 900;
   Timer? _timer;
 
   List<String> itensCorretos = ['pão', 'feijao', 'macarrao', 'leite'];
   Set<String> itensArrastados = {};
-  List<Widget> itensNaCesta = [];
+  List<String> itensNaCesta = [];
 
   @override
   void initState() {
@@ -66,7 +66,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   void reiniciarJogo() {
     setState(() {
       pontos = 0;
-      tempoRestante = 30;
+      tempoRestante = 900;
       itensArrastados.clear();
       itensNaCesta.clear();
       iniciarTemporizador();
@@ -98,7 +98,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   Widget _buildItem(String nome, String caminho) {
     if (itensArrastados.contains(nome)) {
-      return const SizedBox(); // Não mostra mais na posição original
+      return const SizedBox();
     }
 
     return Draggable<String>(
@@ -121,7 +121,6 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Fundo
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -131,27 +130,19 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // Cesta
           Align(
             alignment: Alignment.bottomCenter,
             child: DragTarget<String>(
               onAccept: (item) {
-                if (itensCorretos.contains(item)) {
-                  setState(() {
-                    pontos++;
+                setState(() {
+                  if (!itensNaCesta.contains(item)) {
+                    itensNaCesta.add(item);
                     itensArrastados.add(item);
-                    itensNaCesta.add(
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Image.asset(
-                          _getImagePath(item),
-                          width: 80,
-                          height: 80,
-                        ),
-                      ),
-                    );
-                  });
-                }
+                    if (itensCorretos.contains(item)) {
+                      pontos++;
+                    }
+                  }
+                });
               },
               builder: (context, candidateData, rejectedData) {
                 return Container(
@@ -172,7 +163,24 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                       ),
                       Wrap(
                         alignment: WrapAlignment.center,
-                        children: itensNaCesta,
+                        children: itensNaCesta.map((item) {
+                          return GestureDetector(
+                            onDoubleTap: () {
+                              setState(() {
+                                itensNaCesta.remove(item);
+                                itensArrastados.remove(item);
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Image.asset(
+                                _getImagePath(item),
+                                width: 80,
+                                height: 80,
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),
@@ -181,7 +189,6 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // Itens organizados horizontalmente
           Positioned(
             bottom: 150,
             left: 25,
@@ -209,7 +216,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                       _buildItem('maçã', _getImagePath('maçã')),
                       const SizedBox(height: 12),
                       _buildItem('banana', _getImagePath('banana')),
-                      const SizedBox(height: 12,),
+                      const SizedBox(height: 12),
                       _buildItem('café', _getImagePath('café')),
                     ],
                   )
@@ -218,7 +225,6 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // HUD
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
