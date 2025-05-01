@@ -83,6 +83,14 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
         return 'assets/images/jogoComidas/alimentos/Macarrão.png';
       case 'leite':
         return 'assets/images/jogoComidas/alimentos/Leite.png';
+      case 'cenoura':
+        return 'assets/images/jogoComidas/alimentos/Cenoura.png';
+      case 'maçã':
+        return 'assets/images/jogoComidas/alimentos/Maçã.png';
+      case 'banana':
+        return 'assets/images/jogoComidas/alimentos/Banana.png';
+      case 'café':
+        return 'assets/images/jogoComidas/alimentos/Café.png';
       default:
         return '';
     }
@@ -95,9 +103,9 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
     return Draggable<String>(
       data: nome,
-      feedback: Image.asset(caminho, width: 60, height: 60),
+      feedback: Image.asset(caminho, width: 90, height: 90),
       childWhenDragging:
-      Opacity(opacity: 0.5, child: Image.asset(caminho, width: 60, height: 60)),
+      Opacity(opacity: 0.5, child: Image.asset(caminho, width: 90, height: 90)),
       child: Image.asset(caminho, width: 90, height: 90),
     );
   }
@@ -137,8 +145,8 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                         padding: const EdgeInsets.all(4.0),
                         child: Image.asset(
                           _getImagePath(item),
-                          width: 60,
-                          height: 60,
+                          width: 80,
+                          height: 80,
                         ),
                       ),
                     );
@@ -147,9 +155,9 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
               },
               builder: (context, candidateData, rejectedData) {
                 return Container(
-                  margin: const EdgeInsets.only(bottom: 40),
-                  width: 300,
-                  height: 200,
+                  margin: const EdgeInsets.only(bottom: 25),
+                  width: 360,
+                  height: 130,
                   decoration: BoxDecoration(
                     color: Colors.brown.withOpacity(0.7),
                     border: Border.all(color: Colors.white, width: 3),
@@ -173,11 +181,42 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // Itens para arrastar
-          Positioned(left: 20, bottom: 220, child: _buildItem('pão', _getImagePath('pão'))),
-          Positioned(left: 110, bottom: 220, child: _buildItem('feijao', _getImagePath('feijao'))),
-          Positioned(left: 200, bottom: 220, child: _buildItem('macarrao', _getImagePath('macarrao'))),
-          Positioned(left: 290, bottom: 220, child: _buildItem('leite', _getImagePath('leite'))),
+          // Itens organizados horizontalmente
+          Positioned(
+            bottom: 150,
+            left: 25,
+            right: 0,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      _buildItem('pão', _getImagePath('pão')),
+                      const SizedBox(height: 12),
+                      _buildItem('feijao', _getImagePath('feijao')),
+                      const SizedBox(height: 12),
+                      _buildItem('macarrao', _getImagePath('macarrao')),
+                      const SizedBox(height: 12),
+                      _buildItem('leite', _getImagePath('leite')),
+                    ],
+                  ),
+                  const SizedBox(width: 40),
+                  Row(
+                    children: [
+                      _buildItem('cenoura', _getImagePath('cenoura')),
+                      const SizedBox(height: 12),
+                      _buildItem('maçã', _getImagePath('maçã')),
+                      const SizedBox(height: 12),
+                      _buildItem('banana', _getImagePath('banana')),
+                      const SizedBox(height: 12,),
+                      _buildItem('café', _getImagePath('café')),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
 
           // HUD
           SafeArea(
