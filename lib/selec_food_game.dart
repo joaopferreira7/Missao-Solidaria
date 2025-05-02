@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'main.dart'; // Certifique-se de importar sua tela de seleção
 
 class GameSelectFoodScreen extends StatefulWidget {
   const GameSelectFoodScreen({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   int pontos = 0;
   int tempoRestante = 30;
   Timer? _timer;
+  bool _telaFinalMostrada = false;
 
   final List<String> todosOsItens = [
     'pão', 'feijao', 'macarrao', 'leite',
@@ -53,7 +55,19 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     });
   }
 
+  void _pauseGame() {
+    _timer?.cancel();
+  }
+
+  void _resumeGame() {
+    iniciarTemporizador();
+  }
+
   void mostrarTelaFinal({String mensagem = "Tempo esgotado!"}) {
+    if (_telaFinalMostrada) return;
+    _telaFinalMostrada = true;
+    _pauseGame();
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -80,11 +94,11 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     );
   }
 
-
   void reiniciarJogo() {
     setState(() {
       pontos = 0;
       tempoRestante = 30;
+      _telaFinalMostrada = false;
       itensNaCesta.clear();
       selecionarItensAleatorios();
       embaralharItensVisiveis();
@@ -142,7 +156,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoComidas/Jogo 1 - Referência final (5).png'),
+                image: AssetImage('assets/images/jogoComidas/Jogo 1 - Referência final (11).png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -179,22 +193,16 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     pontos++;
                   }
 
-                  // Verificação após adicionar item
                   if (itensNaCesta.length == 4) {
                     final bool todosCorretos =
                     itensNaCesta.every((item) => itensCorretos.contains(item));
 
                     if (todosCorretos) {
-                      _timer?.cancel(); // Para o cronômetro apenas se estiver tudo correto
                       mostrarTelaFinal(mensagem: "Parabéns! Você acertou todos os itens!");
-                    } else {
-                      // opcional: feedback temporário de erro
                     }
                   }
-
                 });
               },
-
               onWillAccept: (item) => itensNaCesta.length < 4,
               builder: (context, candidateData, rejectedData) {
                 return Container(
@@ -210,8 +218,13 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (itensNaCesta.isEmpty)
-                        const Text('Solte aqui!',
-                            style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+                        const Text(
+                          'Solte aqui!',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold),
+                        ),
                       Wrap(
                         children: itensNaCesta
                             .map((item) => GestureDetector(
@@ -236,7 +249,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // Itens para arrastar (apenas embaralhados uma vez)
+          // Itens visíveis
           Positioned(
             bottom: 145,
             left: 0,
@@ -276,10 +289,10 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // HUD com pontos e tempo
+          // HUD
           Positioned(
-            top: -20, // define a distância do topo
-            left: 0, // define a distância da esquerda
+            top: -20,
+            left: 0,
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -295,9 +308,53 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
+          // Botão de sair
+          Positioned(
+            top: 40,
+            right: -5,
+            child: ElevatedButton(
+              onPressed: () {
+                _pauseGame();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Sair do Jogo'),
+                      content: const Text('Você deseja voltar ao menu anterior?'),
+                      actions: [
+                        TextButton(
+                          child: const Text('Não'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            _resumeGame();
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Sim'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE4C7A3),
+                shape: const CircleBorder(
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                ),
+              ),
+              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
