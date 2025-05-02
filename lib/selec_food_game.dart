@@ -11,9 +11,6 @@ class GameSelectFoodScreen extends StatefulWidget {
   _GameSelectFoodScreenState createState() => _GameSelectFoodScreenState();
 }
 
-
-
-
 class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   int pontos = 0;
   int tempoRestante = 30;
@@ -32,10 +29,10 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   @override
   void initState() {
     super.initState();
+    tempoRestante = widget.tempoInicial;
     selecionarItensAleatorios();
     embaralharItensVisiveis();
     iniciarTemporizador();
-    tempoRestante = widget.tempoInicial;
   }
 
   void selecionarItensAleatorios() {

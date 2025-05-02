@@ -680,53 +680,18 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
   }
 }
 
+class TelaJogo1 extends StatefulWidget {
+  @override
+  _TelaJogo1State createState() => _TelaJogo1State();
+}
 
-class TelaJogo1 extends StatelessWidget {
-  void _escolherDificuldade(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('Escolha a Dificuldade'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _botaoDificuldade(context, dialogContext, 'Fácil', 45),
-              const SizedBox(height: 10),
-              _botaoDificuldade(context, dialogContext, 'Médio', 30),
-              const SizedBox(height: 10),
-              _botaoDificuldade(context, dialogContext, 'Difícil', 20),
-            ],
-          ),
-        );
-      },
-    );
-  }
+class _TelaJogo1State extends State<TelaJogo1> {
+  int _tempoInicial = 30;
 
-  Widget _botaoDificuldade(BuildContext context, BuildContext dialogContext, String dificuldade, int tempo) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.of(dialogContext).pop(); // Fecha o AlertDialog
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GameSelectFoodScreen(tempoInicial: tempo),
-          ),
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFE4C7A3),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: const BorderSide(color: Color(0xFF4F2E0D), width: 3),
-        ),
-      ),
-      child: Text(
-        dificuldade,
-        style: const TextStyle(fontSize: 20, color: Color(0xFF333333)),
-      ),
-    );
+  void _selecionarDificuldade(int tempo) {
+    setState(() {
+      _tempoInicial = tempo;
+    });
   }
 
   @override
@@ -762,30 +727,49 @@ class TelaJogo1 extends StatelessWidget {
             ),
           ),
 
-          // Botão Iniciar
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 100),
+          // Botões de dificuldade com posição específica
+          Positioned(
+            top: 750,
+            left: 20,
+            right: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adiciona espaçamento entre os botões
+              children: [
+                _botaoDificuldade("Fácil", 45),
+                _botaoDificuldade("Médio", 30),
+                _botaoDificuldade("Difícil", 20),
+              ],
+            ),
+          ),
+
+          // Botão Iniciar centralizado mais abaixo e mais largo
+          Positioned(
+            bottom: 40,
+            left: 40,
+            right: 40,
+            child: SizedBox(
+              width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => _escolherDificuldade(context),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GameSelectFoodScreen(tempoInicial: _tempoInicial),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFE4C7A3),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                     side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  textStyle: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 child: const Text(
                   'Iniciar Mini Game',
-                  style: TextStyle(
-                    color: Color(0xFF333333),
-                  ),
+                  style: TextStyle(color: Color(0xFF333333)),
                 ),
               ),
             ),
@@ -794,8 +778,31 @@ class TelaJogo1 extends StatelessWidget {
       ),
     );
   }
-}
 
+  // Botão reutilizável
+  Widget _botaoDificuldade(String label, int tempo) {
+    final bool selecionado = _tempoInicial == tempo;
+    return SizedBox(
+      width: 115,  // Largura fixa do botão
+      child: ElevatedButton(
+        onPressed: () => _selecionarDificuldade(tempo),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+            side: const BorderSide(color: Color(0xFF4F2E0D), width: 3),
+          ),
+        ),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,  // Centraliza o texto
+          style: const TextStyle(fontSize: 24, color: Color(0xFF333333)),
+        ),
+      ),
+    );
+  }
+}
 
 class TelaJogo2 extends StatelessWidget {
   @override
