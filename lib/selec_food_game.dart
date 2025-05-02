@@ -20,18 +20,24 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   ];
 
   late List<String> itensCorretos;
+  late List<String> itensVisiveis;
   Set<String> itensNaCesta = {};
 
   @override
   void initState() {
     super.initState();
     selecionarItensAleatorios();
+    embaralharItensVisiveis();
     iniciarTemporizador();
   }
 
   void selecionarItensAleatorios() {
     todosOsItens.shuffle();
     itensCorretos = todosOsItens.take(4).toList();
+  }
+
+  void embaralharItensVisiveis() {
+    itensVisiveis = List.from(todosOsItens)..shuffle();
   }
 
   void iniciarTemporizador() {
@@ -47,12 +53,12 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     });
   }
 
-  void mostrarTelaFinal() {
+  void mostrarTelaFinal({String mensagem = "Tempo esgotado!"}) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (_) => AlertDialog(
-        title: const Text("Tempo esgotado!"),
+        title: Text(mensagem),
         content: Text("Sua pontuação: $pontos"),
         actions: [
           TextButton(
@@ -74,12 +80,14 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     );
   }
 
+
   void reiniciarJogo() {
     setState(() {
       pontos = 0;
       tempoRestante = 30;
       itensNaCesta.clear();
       selecionarItensAleatorios();
+      embaralharItensVisiveis();
       iniciarTemporizador();
     });
   }
@@ -134,7 +142,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoComidas/fundo_jogoComida.png'),
+                image: AssetImage('assets/images/jogoComidas/fundo_jogoComida_2.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -142,19 +150,15 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
           // Itens corretos
           Positioned(
-            top: 40,
+            top: 60,
             left: 0,
             right: 0,
             child: Column(
               children: [
-                const Text(
-                  'Itens corretos:',
-                  style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
-                ),
                 Wrap(
                   spacing: 10,
                   children: itensCorretos
-                      .map((item) => Image.asset(_getImagePath(item), width: 70, height: 70))
+                      .map((item) => Image.asset(_getImagePath(item), width: 90, height: 90))
                       .toList(),
                 ),
               ],
@@ -168,10 +172,30 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
               onAccept: (item) {
                 setState(() {
                   if (itensNaCesta.contains(item)) return;
+
                   itensNaCesta.add(item);
-                  if (itensCorretos.contains(item)) pontos++;
+
+                  if (itensCorretos.contains(item)) {
+                    pontos++;
+                  }
+
+                  // Verificação após adicionar item
+                  if (itensNaCesta.length == 4) {
+                    final bool todosCorretos =
+                    itensNaCesta.every((item) => itensCorretos.contains(item));
+
+                    _timer?.cancel(); // Para o cronômetro
+
+                    if (todosCorretos) {
+                      mostrarTelaFinal(mensagem: "Parabéns! Você acertou todos os itens!");
+                    } else {
+                      // Continua o jogo normalmente (não fecha)
+                      // Poderia, se quiser, mostrar uma mensagem de erro temporária ou feedback
+                    }
+                  }
                 });
               },
+
               onWillAccept: (item) => itensNaCesta.length < 4,
               builder: (context, candidateData, rejectedData) {
                 return Container(
@@ -188,7 +212,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     children: [
                       if (itensNaCesta.isEmpty)
                         const Text('Solte aqui!',
-                            style: TextStyle(color: Colors.white, fontSize: 24)),
+                            style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
                       Wrap(
                         children: itensNaCesta
                             .map((item) => GestureDetector(
@@ -213,9 +237,9 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // Itens para arrastar (filtrando os que já estão na cesta)
+          // Itens para arrastar (apenas embaralhados uma vez)
           Positioned(
-            bottom: 150,
+            bottom: 145,
             left: 0,
             right: 0,
             child: Center(
@@ -225,7 +249,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: todosOsItens
+                      children: itensVisiveis
                           .where((item) => !itensNaCesta.contains(item))
                           .take(4)
                           .map((item) => Padding(
@@ -237,7 +261,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: todosOsItens
+                      children: itensVisiveis
                           .where((item) => !itensNaCesta.contains(item))
                           .skip(4)
                           .take(4)
@@ -254,28 +278,27 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
           ),
 
           // HUD com pontos e tempo
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Pontos: $pontos',
-                    style: const TextStyle(
-                        fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+          Positioned(
+            top: -20, // define a distância do topo
+            left: 0, // define a distância da esquerda
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Tempo: $tempoRestante',
+                  style: const TextStyle(
+                    fontSize: 28,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    'Tempo: $tempoRestante',
-                    style: const TextStyle(
-                        fontSize: 24, color: Colors.redAccent, fontWeight: FontWeight.bold),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
+
         ],
       ),
     );
   }
 }
+
