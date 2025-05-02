@@ -142,7 +142,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoComidas/fundo_jogoComida_2.png'),
+                image: AssetImage('assets/images/jogoComidas/Jogo 1 - Referência final.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -184,15 +184,14 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     final bool todosCorretos =
                     itensNaCesta.every((item) => itensCorretos.contains(item));
 
-                    _timer?.cancel(); // Para o cronômetro
-
                     if (todosCorretos) {
+                      _timer?.cancel(); // Para o cronômetro apenas se estiver tudo correto
                       mostrarTelaFinal(mensagem: "Parabéns! Você acertou todos os itens!");
                     } else {
-                      // Continua o jogo normalmente (não fecha)
-                      // Poderia, se quiser, mostrar uma mensagem de erro temporária ou feedback
+                      // opcional: feedback temporário de erro
                     }
                   }
+
                 });
               },
 
