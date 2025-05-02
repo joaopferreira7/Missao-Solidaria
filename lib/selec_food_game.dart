@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'main.dart'; // Certifique-se de importar sua tela de seleção
 
 class GameSelectFoodScreen extends StatefulWidget {
-  const GameSelectFoodScreen({Key? key}) : super(key: key);
+  final int tempoInicial;
+  const GameSelectFoodScreen({Key? key, required this.tempoInicial}) : super(key: key);
 
   @override
   _GameSelectFoodScreenState createState() => _GameSelectFoodScreenState();
 }
+
+
+
 
 class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   int pontos = 0;
@@ -31,6 +35,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     selecionarItensAleatorios();
     embaralharItensVisiveis();
     iniciarTemporizador();
+    tempoRestante = widget.tempoInicial;
   }
 
   void selecionarItensAleatorios() {
@@ -310,8 +315,8 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
           // Botão de sair
           Positioned(
-            top: 40,
-            right: -5,
+            top: 35,
+            right: -10,
             child: ElevatedButton(
               onPressed: () {
                 _pauseGame();
