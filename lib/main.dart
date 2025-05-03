@@ -795,13 +795,11 @@ class _TelaJogo1State extends State<TelaJogo1> {
       ),
     );
   }
-
   // Botão reutilizável
   Widget _botaoDificuldade(String label) {
     final bool selecionado = (_quantidadeItens == 5 && label == "Fácil") ||
         (_quantidadeItens == 4 && label == "Médio") ||
         (_quantidadeItens == 3 && label == "Difícil");
-
     return SizedBox(
       width: 115,
       child: ElevatedButton(
@@ -823,7 +821,6 @@ class _TelaJogo1State extends State<TelaJogo1> {
     );
   }
 }
-
 
 class TelaJogo2 extends StatelessWidget {
   @override
