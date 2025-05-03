@@ -687,10 +687,12 @@ class TelaJogo1 extends StatefulWidget {
 
 class _TelaJogo1State extends State<TelaJogo1> {
   int _tempoInicial = 30;
+  int _quantidadeItens = 4; //
 
-  void _selecionarDificuldade(int tempo) {
+  void _selecionarDificuldade(int tempo, int quantidadeItens) {
     setState(() {
       _tempoInicial = tempo;
+      _quantidadeItens = quantidadeItens;
     });
   }
 
@@ -735,9 +737,9 @@ class _TelaJogo1State extends State<TelaJogo1> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adiciona espaçamento entre os botões
               children: [
-                _botaoDificuldade("Fácil", 45),
-                _botaoDificuldade("Médio", 30),
-                _botaoDificuldade("Difícil", 20),
+                _botaoDificuldade("Fácil", 40, 5),
+                _botaoDificuldade("Médio", 30, 4),
+                _botaoDificuldade("Difícil", 15, 3),
               ],
             ),
           ),
@@ -781,11 +783,11 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
   // Botão reutilizável
   Widget _botaoDificuldade(String label, int tempo) {
-    final bool selecionado = _tempoInicial == tempo;
+    final bool selecionado = _tempoInicial == tempo && _quantidadeItens == quantidadeItens;
     return SizedBox(
       width: 115,  // Largura fixa do botão
       child: ElevatedButton(
-        onPressed: () => _selecionarDificuldade(tempo),
+        onPressed: () => _selecionarDificuldade(tempo, quantidadeItens),
         style: ElevatedButton.styleFrom(
           backgroundColor: selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
           padding: const EdgeInsets.symmetric(vertical: 12),
@@ -847,7 +849,10 @@ class TelaJogo2 extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const GameFallingScreen()),
+                    MaterialPageRoute(builder: (context) => const GameFallingScreen(
+                      tempoInicial: _tempoInicial,
+                      quantidadeItens: _quantidadeItens,
+                    )),
                   );
                 },
                 style: ElevatedButton.styleFrom(

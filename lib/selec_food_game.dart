@@ -5,7 +5,8 @@ import 'main.dart'; // Certifique-se de importar sua tela de seleção
 
 class GameSelectFoodScreen extends StatefulWidget {
   final int tempoInicial;
-  const GameSelectFoodScreen({Key? key, required this.tempoInicial}) : super(key: key);
+  final int quantidadeItens;
+  const GameSelectFoodScreen({Key? key, required this.tempoInicial, required this.quantidadeItens}) : super(key: key);
 
   @override
   _GameSelectFoodScreenState createState() => _GameSelectFoodScreenState();
@@ -24,12 +25,14 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   late List<String> itensCorretos;
   late List<String> itensVisiveis;
+  late int quantidadeParaSelecionar;
   Set<String> itensNaCesta = {};
 
   @override
   void initState() {
     super.initState();
     tempoRestante = widget.tempoInicial;
+    quantidadeParaSelecionar = widget.quantidadeItens;
     selecionarItensAleatorios();
     embaralharItensVisiveis();
     iniciarTemporizador();
@@ -37,7 +40,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   void selecionarItensAleatorios() {
     todosOsItens.shuffle();
-    itensCorretos = todosOsItens.take(4).toList();
+    itensCorretos = todosOsItens.take(quantidadeParaSelecionar).toList();
   }
 
   void embaralharItensVisiveis() {
@@ -195,7 +198,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     pontos++;
                   }
 
-                  if (itensNaCesta.length == 4) {
+                  if (itensNaCesta.length == quantidadeParaSelecionar) {
                     final bool todosCorretos =
                     itensNaCesta.every((item) => itensCorretos.contains(item));
 
