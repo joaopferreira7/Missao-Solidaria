@@ -687,12 +687,24 @@ class TelaJogo1 extends StatefulWidget {
 
 class _TelaJogo1State extends State<TelaJogo1> {
   int _tempoInicial = 30;
-  int _quantidadeItens = 4; //
+  int _quantidadeItens = 4;
 
-  void _selecionarDificuldade(int tempo, int quantidadeItens) {
+  void _selecionarDificuldade(String dificuldade) {
     setState(() {
-      _tempoInicial = tempo;
-      _quantidadeItens = quantidadeItens;
+      switch (dificuldade) {
+        case "Fácil":
+          _tempoInicial = 40;
+          _quantidadeItens = 5;
+          break;
+        case "Médio":
+          _tempoInicial = 30;
+          _quantidadeItens = 4;
+          break;
+        case "Difícil":
+          _tempoInicial = 15;
+          _quantidadeItens = 3;
+          break;
+      }
     });
   }
 
@@ -735,11 +747,11 @@ class _TelaJogo1State extends State<TelaJogo1> {
             left: 20,
             right: 20,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adiciona espaçamento entre os botões
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _botaoDificuldade("Fácil", 40, 5),
-                _botaoDificuldade("Médio", 30, 4),
-                _botaoDificuldade("Difícil", 15, 3),
+                _botaoDificuldade("Fácil"),
+                _botaoDificuldade("Médio"),
+                _botaoDificuldade("Difícil"),
               ],
             ),
           ),
@@ -756,7 +768,10 @@ class _TelaJogo1State extends State<TelaJogo1> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GameSelectFoodScreen(tempoInicial: _tempoInicial),
+                      builder: (context) => GameSelectFoodScreen(
+                        tempoInicial: _tempoInicial,
+                        quantidadeItens: _quantidadeItens,
+                      ),
                     ),
                   );
                 },
@@ -782,12 +797,15 @@ class _TelaJogo1State extends State<TelaJogo1> {
   }
 
   // Botão reutilizável
-  Widget _botaoDificuldade(String label, int tempo) {
-    final bool selecionado = _tempoInicial == tempo && _quantidadeItens == quantidadeItens;
+  Widget _botaoDificuldade(String label) {
+    final bool selecionado = (_quantidadeItens == 5 && label == "Fácil") ||
+        (_quantidadeItens == 4 && label == "Médio") ||
+        (_quantidadeItens == 3 && label == "Difícil");
+
     return SizedBox(
-      width: 115,  // Largura fixa do botão
+      width: 115,
       child: ElevatedButton(
-        onPressed: () => _selecionarDificuldade(tempo, quantidadeItens),
+        onPressed: () => _selecionarDificuldade(label),
         style: ElevatedButton.styleFrom(
           backgroundColor: selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
           padding: const EdgeInsets.symmetric(vertical: 12),
@@ -798,13 +816,14 @@ class _TelaJogo1State extends State<TelaJogo1> {
         ),
         child: Text(
           label,
-          textAlign: TextAlign.center,  // Centraliza o texto
+          textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 24, color: Color(0xFF333333)),
         ),
       ),
     );
   }
 }
+
 
 class TelaJogo2 extends StatelessWidget {
   @override
@@ -849,10 +868,7 @@ class TelaJogo2 extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const GameFallingScreen(
-                      tempoInicial: _tempoInicial,
-                      quantidadeItens: _quantidadeItens,
-                    )),
+                    MaterialPageRoute(builder: (context) => const GameFallingScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

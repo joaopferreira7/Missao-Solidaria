@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'main.dart'; // Certifique-se de importar sua tela de seleção
+import 'main.dart';
 
 class GameSelectFoodScreen extends StatefulWidget {
   final int tempoInicial;
@@ -14,7 +14,7 @@ class GameSelectFoodScreen extends StatefulWidget {
 
 class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   int pontos = 0;
-  int tempoRestante = 30;
+  late int tempoRestante;
   Timer? _timer;
   bool _telaFinalMostrada = false;
 
@@ -25,14 +25,12 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   late List<String> itensCorretos;
   late List<String> itensVisiveis;
-  late int quantidadeParaSelecionar;
   Set<String> itensNaCesta = {};
 
   @override
   void initState() {
     super.initState();
     tempoRestante = widget.tempoInicial;
-    quantidadeParaSelecionar = widget.quantidadeItens;
     selecionarItensAleatorios();
     embaralharItensVisiveis();
     iniciarTemporizador();
@@ -40,7 +38,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   void selecionarItensAleatorios() {
     todosOsItens.shuffle();
-    itensCorretos = todosOsItens.take(quantidadeParaSelecionar).toList();
+    itensCorretos = todosOsItens.take(widget.quantidadeItens).toList();
   }
 
   void embaralharItensVisiveis() {
@@ -102,7 +100,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
   void reiniciarJogo() {
     setState(() {
       pontos = 0;
-      tempoRestante = 30;
+      tempoRestante = widget.tempoInicial;
       _telaFinalMostrada = false;
       itensNaCesta.clear();
       selecionarItensAleatorios();
@@ -198,7 +196,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     pontos++;
                   }
 
-                  if (itensNaCesta.length == quantidadeParaSelecionar) {
+                  if (itensNaCesta.length == widget.quantidadeItens) {
                     final bool todosCorretos =
                     itensNaCesta.every((item) => itensCorretos.contains(item));
 
@@ -208,7 +206,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                   }
                 });
               },
-              onWillAccept: (item) => itensNaCesta.length < 4,
+              onWillAccept: (item) => itensNaCesta.length < widget.quantidadeItens,
               builder: (context, candidateData, rejectedData) {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 25),
