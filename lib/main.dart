@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'falling_game.dart';
+import 'selec_food_game.dart';
 
 void main() {
   runApp(MyApp());
@@ -114,10 +116,10 @@ class TelaInicial extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFF5782F),
+                  backgroundColor: Color(0xFFE4C7A3),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100),
-                    side: BorderSide(color: Color(0xFFF773A26), width: 4),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
                   padding: EdgeInsets.zero,
                 ),
@@ -145,10 +147,10 @@ class TelaInicial extends StatelessWidget {
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFFF5782F),
+          backgroundColor: Color(0xFFE4C7A3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Color(0xFFF773A26), width: 5),
+            side: BorderSide(color: Color(0xFF4F2E0D), width: 5),
           ),
         ),
         onPressed: onPressed,
@@ -678,13 +680,144 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
   }
 }
 
-// Telas de exemplo (substitua com os jogos reais)
-class TelaJogo1 extends StatelessWidget {
+class TelaJogo1 extends StatefulWidget {
+  @override
+  _TelaJogo1State createState() => _TelaJogo1State();
+}
+
+class _TelaJogo1State extends State<TelaJogo1> {
+  int _tempoInicial = 30;
+  int _quantidadeItens = 4;
+
+  void _selecionarDificuldade(String dificuldade) {
+    setState(() {
+      switch (dificuldade) {
+        case "Fácil":
+          _tempoInicial = 40;
+          _quantidadeItens = 5;
+          break;
+        case "Médio":
+          _tempoInicial = 30;
+          _quantidadeItens = 4;
+          break;
+        case "Difícil":
+          _tempoInicial = 15;
+          _quantidadeItens = 3;
+          break;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Jogo 1')),
-      body: Center(child: Text('Tela do Jogo 1')),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/jogoComidas/fundo_jogoComida.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar
+          Positioned(
+            top: 35,
+            right: -10,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE4C7A3),
+                shape: const CircleBorder(
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                ),
+              ),
+              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+            ),
+          ),
+
+          // Botões de dificuldade com posição específica
+          Positioned(
+            top: 750,
+            left: 20,
+            right: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _botaoDificuldade("Fácil"),
+                _botaoDificuldade("Médio"),
+                _botaoDificuldade("Difícil"),
+              ],
+            ),
+          ),
+
+          // Botão Iniciar centralizado mais abaixo e mais largo
+          Positioned(
+            bottom: 40,
+            left: 40,
+            right: 40,
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GameSelectFoodScreen(
+                        tempoInicial: _tempoInicial,
+                        quantidadeItens: _quantidadeItens,
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                child: const Text(
+                  'Iniciar Mini Game',
+                  style: TextStyle(color: Color(0xFF333333)),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  // Botão reutilizável
+  Widget _botaoDificuldade(String label) {
+    final bool selecionado = (_quantidadeItens == 5 && label == "Fácil") ||
+        (_quantidadeItens == 4 && label == "Médio") ||
+        (_quantidadeItens == 3 && label == "Difícil");
+    return SizedBox(
+      width: 115,
+      child: ElevatedButton(
+        onPressed: () => _selecionarDificuldade(label),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+            side: const BorderSide(color: Color(0xFF4F2E0D), width: 3),
+          ),
+        ),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 24, color: Color(0xFF333333)),
+        ),
+      ),
     );
   }
 }
@@ -693,8 +826,71 @@ class TelaJogo2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Jogo 2')),
-      body: Center(child: Text('Tela do Jogo 2')),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/jogoRoupas/fundo_jogoRoupas.jpeg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 40,
+            right: -5,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE4C7A3),
+                shape: const CircleBorder(
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                ),
+              ),
+              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+            ),
+          ),
+
+          // Botão iniciar no centro inferior
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 100),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const GameFallingScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: const Text(
+                  'Iniciar Mini Game',
+                  style: TextStyle(
+                    color: Color(0xFF333333), // Aqui você escolhe a cor desejada
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -749,3 +945,5 @@ class TelaCreditos extends StatelessWidget {
     );
   }
 }
+
+

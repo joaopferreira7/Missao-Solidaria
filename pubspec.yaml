@@ -31,3 +31,6 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/jogoRoupas/
+    - assets/images/jogoComidas/
+    - assets/images/jogoComidas/alimentos/
