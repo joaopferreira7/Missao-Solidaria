@@ -693,16 +693,16 @@ class _TelaJogo1State extends State<TelaJogo1> {
     setState(() {
       switch (dificuldade) {
         case "Fácil":
-          _tempoInicial = 40;
-          _quantidadeItens = 5;
-          break;
-        case "Médio":
           _tempoInicial = 30;
           _quantidadeItens = 4;
           break;
-        case "Difícil":
+        case "Médio":
           _tempoInicial = 15;
-          _quantidadeItens = 3;
+          _quantidadeItens = 4;
+          break;
+        case "Difícil":
+          _tempoInicial = 10;
+          _quantidadeItens = 4;
           break;
       }
     });
@@ -797,9 +797,9 @@ class _TelaJogo1State extends State<TelaJogo1> {
   }
   // Botão reutilizável
   Widget _botaoDificuldade(String label) {
-    final bool selecionado = (_quantidadeItens == 5 && label == "Fácil") ||
+    final bool selecionado = (_quantidadeItens == 4 && label == "Fácil") ||
         (_quantidadeItens == 4 && label == "Médio") ||
-        (_quantidadeItens == 3 && label == "Difícil");
+        (_quantidadeItens == 4 && label == "Difícil");
     return SizedBox(
       width: 115,
       child: ElevatedButton(

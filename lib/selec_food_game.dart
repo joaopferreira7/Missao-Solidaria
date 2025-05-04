@@ -20,7 +20,8 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   final List<String> todosOsItens = [
     'pão', 'feijao', 'macarrao', 'leite',
-    'cenoura', 'maçã', 'banana', 'café'
+    'cenoura', 'maçã', 'banana', 'café',
+    'alface', 'carne', 'farinha', 'milho',
   ];
 
   late List<String> itensCorretos;
@@ -32,7 +33,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     super.initState();
     tempoRestante = widget.tempoInicial;
     selecionarItensAleatorios();
-    embaralharItensVisiveis();
+    definirItensVisiveis();
     iniciarTemporizador();
   }
 
@@ -41,8 +42,18 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     itensCorretos = todosOsItens.take(widget.quantidadeItens).toList();
   }
 
-  void embaralharItensVisiveis() {
-    itensVisiveis = List.from(todosOsItens)..shuffle();
+  void definirItensVisiveis() {
+    final List<String> itensRestantes = List.from(todosOsItens);
+
+    // Remove os itens corretos da lista restante para evitar duplicação
+    itensRestantes.removeWhere((item) => itensCorretos.contains(item));
+    itensRestantes.shuffle();
+
+    // Pegamos itens aleatórios adicionais para completar os 8
+    List<String> extras = itensRestantes.take(8 - itensCorretos.length).toList();
+
+    // Junta os corretos com os extras e embaralha
+    itensVisiveis = [...itensCorretos, ...extras]..shuffle();
   }
 
   void iniciarTemporizador() {
@@ -104,7 +115,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
       _telaFinalMostrada = false;
       itensNaCesta.clear();
       selecionarItensAleatorios();
-      embaralharItensVisiveis();
+      definirItensVisiveis();
       iniciarTemporizador();
     });
   }
@@ -127,6 +138,14 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
         return 'assets/images/jogoComidas/alimentos/Banana.png';
       case 'café':
         return 'assets/images/jogoComidas/alimentos/Café.png';
+      case 'alface':
+        return 'assets/images/jogoComidas/alimentos/Alface.png';
+      case 'carne':
+        return 'assets/images/jogoComidas/alimentos/Carne.png';
+      case 'farinha':
+        return 'assets/images/jogoComidas/alimentos/Farinha.png';
+      case 'milho':
+        return 'assets/images/jogoComidas/alimentos/Milho_enlatado.png';
       default:
         return '';
     }
@@ -138,8 +157,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
     return Draggable<String>(
       data: nome,
       feedback: Image.asset(caminho, width: 90, height: 90),
-      childWhenDragging:
-      Opacity(opacity: 0.5, child: Image.asset(caminho, width: 90, height: 90)),
+      childWhenDragging: Opacity(opacity: 0.5, child: Image.asset(caminho, width: 90, height: 90)),
       child: Image.asset(caminho, width: 90, height: 90),
     );
   }
@@ -152,6 +170,8 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> itensParaMostrar = itensVisiveis.where((item) => !itensNaCesta.contains(item)).toList();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -197,9 +217,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                   }
 
                   if (itensNaCesta.length == widget.quantidadeItens) {
-                    final bool todosCorretos =
-                    itensNaCesta.every((item) => itensCorretos.contains(item));
-
+                    final bool todosCorretos = itensNaCesta.every((item) => itensCorretos.contains(item));
                     if (todosCorretos) {
                       mostrarTelaFinal(mensagem: "Parabéns! Você acertou todos os itens!");
                     }
@@ -223,17 +241,12 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                       if (itensNaCesta.isEmpty)
                         const Text(
                           'Solte aqui!',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                       Wrap(
                         children: itensNaCesta
                             .map((item) => GestureDetector(
-                          onTap: () {
-                            setState(() => itensNaCesta.remove(item));
-                          },
+                          onTap: () => setState(() => itensNaCesta.remove(item)),
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Image.asset(
@@ -252,7 +265,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // Itens visíveis
+          // Itens visíveis (para selecionar)
           Positioned(
             bottom: 145,
             left: 0,
@@ -264,27 +277,22 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: itensVisiveis
-                          .where((item) => !itensNaCesta.contains(item))
-                          .take(4)
-                          .map((item) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: _buildItem(item),
-                      ))
-                          .toList(),
+                      children: itensParaMostrar.take(4).map((item) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: _buildItem(item),
+                        );
+                      }).toList(),
                     ),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: itensVisiveis
-                          .where((item) => !itensNaCesta.contains(item))
-                          .skip(4)
-                          .take(4)
-                          .map((item) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: _buildItem(item),
-                      ))
-                          .toList(),
+                      children: itensParaMostrar.skip(4).take(4).map((item) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: _buildItem(item),
+                        );
+                      }).toList(),
                     ),
                   ],
                 ),
@@ -292,7 +300,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
             ),
           ),
 
-          // HUD
+          // HUD - Tempo
           Positioned(
             top: -20,
             left: 0,
@@ -301,11 +309,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Tempo: $tempoRestante',
-                  style: const TextStyle(
-                    fontSize: 28,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -336,7 +340,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                           child: const Text('Sim'),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Navigator.pushReplacement(
+                              Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
                             );
