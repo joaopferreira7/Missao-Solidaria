@@ -1,8 +1,10 @@
+// Importações necessárias
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'main.dart';
 
+// Modelo de Objeto que Cai
 class FallingObject {
   final double left;
   final int id;
@@ -15,6 +17,23 @@ class FallingObject {
     required this.id,
     required this.imagePath,
     required this.isGood,
+  });
+}
+
+// Fase do jogo com roupas específicas
+class Phase {
+  final int duration;
+  final int maxErrors;
+  final double fallSpeed;
+  final List<String> goodClothes;
+  final List<String> badClothes;
+
+  Phase({
+    required this.duration,
+    required this.maxErrors,
+    required this.fallSpeed,
+    required this.goodClothes,
+    required this.badClothes,
   });
 }
 
@@ -36,52 +55,81 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
   Timer? gameTimer;
   bool gameOver = false;
   bool isPaused = false;
-
   int currentPhase = 0;
-  List<Phase> phases = [
-    Phase(duration: 60, maxErrors: 5, fallSpeed: 0.9),
-    Phase(duration: 50, maxErrors: 3, fallSpeed: 0.6),
-    Phase(duration: 30, maxErrors: 2, fallSpeed: 0.3),
-  ];
 
-  final List<String> goodClothes = [
-    'assets/images/jogoRoupas/Calça_marrom_boa.png',
-    'assets/images/jogoRoupas/Calça_azulClaro_boa.png',
-    'assets/images/jogoRoupas/Calça_azulEscuro_boa.png',
-    'assets/images/jogoRoupas/Calça_cinzaClaro_boa.png',
-    'assets/images/jogoRoupas/Calça_cinzaEscuro_boa.png',
-    'assets/images/jogoRoupas/Calça_preta_boa.png',
-    'assets/images/jogoRoupas/Camisa_azul_boa.png',
-    'assets/images/jogoRoupas/Camisa_branca_boa.png',
-    'assets/images/jogoRoupas/Camisa_laranja_boa.png',
-    'assets/images/jogoRoupas/Camisa_marromListrada_boa.png',
-    'assets/images/jogoRoupas/Camisa_preta_boa.png',
-    'assets/images/jogoRoupas/Camisa_verdeListrada_boa.png',
-  ];
-
-  final List<String> badClothes = [
-    'assets/images/jogoRoupas/Camisa_laranja_ruim.png',
-    'assets/images/jogoRoupas/Camisa_marromListrada_ruim.png',
-    'assets/images/jogoRoupas/Camisa_preta_ruim.png',
-    'assets/images/jogoRoupas/Camisa_verdeListrada_ruim.png',
-    'assets/images/jogoRoupas/Camisa_branca_ruim.png',
-    'assets/images/jogoRoupas/Camisa_azul_ruim.png',
-    'assets/images/jogoRoupas/Shorts_azul_ruim.png',
-    'assets/images/jogoRoupas/Shorts_bege_ruim.png',
-    'assets/images/jogoRoupas/Shorts_branco_ruim.png',
-    'assets/images/jogoRoupas/Shorts_cinza_ruim.png',
-    'assets/images/jogoRoupas/Shorts_marrom_ruim.png',
-    'assets/images/jogoRoupas/Shorts_preto_ruim.png',
-  ];
+  late List<Phase> phases;
 
   @override
   void initState() {
     super.initState();
+
+    // Define as fases com roupas específicas
+    phases = [
+      Phase(
+        duration: 60,
+        maxErrors: 5,
+        fallSpeed: 0.9,
+        goodClothes: [
+          'assets/images/jogoRoupas/Calça_marrom_boa.png',
+          'assets/images/jogoRoupas/Calça_azulClaro_boa.png',
+          'assets/images/jogoRoupas/Calça_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/Calça_cinzaClaro_boa.png',
+          'assets/images/jogoRoupas/Calça_cinzaEscuro_boa.png',
+          'assets/images/jogoRoupas/Calça_preta_boa.png',
+          'assets/images/jogoRoupas/Camisa_azul_boa.png',
+          'assets/images/jogoRoupas/Camisa_branca_boa.png',
+          'assets/images/jogoRoupas/Camisa_laranja_boa.png',
+          'assets/images/jogoRoupas/Camisa_marromListrada_boa.png',
+          'assets/images/jogoRoupas/Camisa_preta_boa.png',
+          'assets/images/jogoRoupas/Camisa_verdeListrada_boa.png',
+        ],
+        badClothes: [
+          'assets/images/jogoRoupas/Camisa_laranja_ruim.png',
+          'assets/images/jogoRoupas/Camisa_marromListrada_ruim.png',
+          'assets/images/jogoRoupas/Camisa_preta_ruim.png',
+          'assets/images/jogoRoupas/Camisa_verdeListrada_ruim.png',
+          'assets/images/jogoRoupas/Camisa_branca_ruim.png',
+          'assets/images/jogoRoupas/Camisa_azul_ruim.png',
+          'assets/images/jogoRoupas/Shorts_azul_ruim.png',
+          'assets/images/jogoRoupas/Shorts_bege_ruim.png',
+          'assets/images/jogoRoupas/Shorts_branco_ruim.png',
+          'assets/images/jogoRoupas/Shorts_cinza_ruim.png',
+          'assets/images/jogoRoupas/Shorts_marrom_ruim.png',
+          'assets/images/jogoRoupas/Shorts_preto_ruim.png',
+        ],
+      ),
+      Phase(
+        duration: 50,
+        maxErrors: 3,
+        fallSpeed: 0.6,
+        goodClothes: [
+          'assets/images/jogoRoupas/Calca_jeans_boa.png',
+          'assets/images/jogoRoupas/Camisa_social_boa.png',
+        ],
+        badClothes: [
+          'assets/images/jogoRoupas/Calca_jeans_ruim.png',
+          'assets/images/jogoRoupas/Camisa_social_ruim.png',
+        ],
+      ),
+      Phase(
+        duration: 30,
+        maxErrors: 2,
+        fallSpeed: 0.3,
+        goodClothes: [
+          'assets/images/jogoRoupas/Blusa_lan_boa.png',
+        ],
+        badClothes: [
+          'assets/images/jogoRoupas/Blusa_lan_ruim.png',
+        ],
+      ),
+    ];
+
     _startPhase();
   }
 
   void _startPhase() {
     Phase current = phases[currentPhase];
+    remainingTime = current.duration;
 
     spawnTimer = Timer.periodic(
       Duration(milliseconds: (current.fallSpeed * 1000).toInt()),
@@ -131,33 +179,32 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
   }
 
   void _showVictoryDialog() {
-    _pauseGame(); // Pausa o jogo e os objetos
+    _pauseGame();
     showDialog(
       context: context,
-      barrierDismissible: false, // Evita fechar acidentalmente
+      barrierDismissible: false,
       builder: (_) => AlertDialog(
         title: const Text('Parabéns!'),
-        content: Text('Você completou a fase ${currentPhase + 1}!\nPontuação: $score'),
-        actions: [
-          TextButton(
+        content: Text('Você completou a fase ${currentPhase + 1}!Pontuação: $score'),
+            actions: [
+            TextButton(
             onPressed: () {
-              Navigator.pop(context); // Fecha o dialog
-              Future.delayed(const Duration(milliseconds: 100), () {
-                setState(() {
-                  currentPhase++;
-                  score = 0;
-                  badPassed = 0;
-                  remainingTime = phases[currentPhase].duration;
-                  objects.clear();
-                });
-                _resumeGame(); // Retoma o jogo
-                _startPhase(); // Inicia a próxima fase
-              });
-            },
-            child: const Text('Próxima Fase'),
-          ),
-        ],
+      Navigator.pop(context);
+      Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+      currentPhase++;
+      score = 0;
+      badPassed = 0;
+      objects.clear();
+      });
+      _resumeGame();
+      _startPhase();
+      });
+      },
+        child: const Text('Próxima Fase'),
       ),
+      ],
+    ),
     );
   }
 
@@ -176,7 +223,6 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
                 setState(() {
                   score = 0;
                   badPassed = 0;
-                  remainingTime = phases[currentPhase].duration;
                   objects.clear();
                   _startPhase();
                 });
@@ -200,10 +246,11 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
   }
 
   void _addFallingObject() {
+    Phase current = phases[currentPhase];
     bool isGood = random.nextBool();
     String imagePath = isGood
-        ? goodClothes[random.nextInt(goodClothes.length)]
-        : badClothes[random.nextInt(badClothes.length)];
+        ? current.goodClothes[random.nextInt(current.goodClothes.length)]
+        : current.badClothes[random.nextInt(current.badClothes.length)];
 
     AnimationController controller = AnimationController(
       duration: const Duration(seconds: 2),
@@ -396,16 +443,4 @@ class FallingWidget extends StatelessWidget {
       },
     );
   }
-}
-
-class Phase {
-  final int duration;
-  final int maxErrors;
-  final double fallSpeed;
-
-  Phase({
-    required this.duration,
-    required this.maxErrors,
-    required this.fallSpeed,
-  });
 }

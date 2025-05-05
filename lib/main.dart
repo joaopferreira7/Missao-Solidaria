@@ -619,7 +619,7 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
           Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 170),
+              padding: const EdgeInsets.only(bottom: 160),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
