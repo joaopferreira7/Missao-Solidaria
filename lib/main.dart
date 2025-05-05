@@ -686,11 +686,14 @@ class TelaJogo1 extends StatefulWidget {
 }
 
 class _TelaJogo1State extends State<TelaJogo1> {
+  String? _dificuldadeSelecionada;
   int _tempoInicial = 30;
   int _quantidadeItens = 4;
 
   void _selecionarDificuldade(String dificuldade) {
     setState(() {
+      _dificuldadeSelecionada = dificuldade;
+
       switch (dificuldade) {
         case "Fácil":
           _tempoInicial = 30;
@@ -797,9 +800,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
   }
   // Botão reutilizável
   Widget _botaoDificuldade(String label) {
-    final bool selecionado = (_quantidadeItens == 4 && label == "Fácil") ||
-        (_quantidadeItens == 4 && label == "Médio") ||
-        (_quantidadeItens == 4 && label == "Difícil");
+    final bool selecionado = _dificuldadeSelecionada == label;
     return SizedBox(
       width: 115,
       child: ElevatedButton(
