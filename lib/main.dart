@@ -515,9 +515,6 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
       case 3:
         tela = TelaJogo3();
         break;
-      case 4:
-        tela = TelaJogo4();
-        break;
       default:
         return;
     }
@@ -630,19 +627,13 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildBotaoJogar('assets/images/Jogo1.png', 1),
-                      SizedBox(width: 50),
+                      SizedBox(width: 7.5),
                       _buildBotaoJogar('assets/images/Jogo2.png', 2),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                      SizedBox(width: 7.5),
                       _buildBotaoJogar('assets/images/Jogo3.png', 3),
-                      SizedBox(width: 50),
-                      _buildBotaoJogar('assets/images/Jogo4.png', 4),
                     ],
                   ),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
@@ -934,15 +925,6 @@ class TelaJogo3 extends StatelessWidget {
   }
 }
 
-class TelaJogo4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Jogo 4')),
-      body: Center(child: Text('Tela do Jogo 4')),
-    );
-  }
-}
 
 // Outras Telas
 class TelaComoJogar extends StatelessWidget {
