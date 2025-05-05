@@ -445,6 +445,34 @@ class TelaHistoria_7 extends StatelessWidget {
             onProximo: () {
               Navigator.push(
                 context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_8()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TelaHistoria_8 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_8.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_7()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
               );
             },
