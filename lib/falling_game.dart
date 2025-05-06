@@ -298,7 +298,6 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
         ],
       ),
     ];
-
     _startPhase();
   }
 

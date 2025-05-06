@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'falling_game.dart';
 import 'selec_food_game.dart';
+import 'collect_garbage_game.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,13 +62,6 @@ class TelaInicial extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => TelaComoJogar(),
                         ),
-                      );
-                    }),
-                    SizedBox(height: 14),
-                    botaoCustomizado('Configurações', () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TelaConfig()),
                       );
                     }),
                     SizedBox(height: 14),
@@ -919,8 +913,71 @@ class TelaJogo3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Jogo 3')),
-      body: Center(child: Text('Tela do Jogo 3')),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(''),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 40,
+            right: -5,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE4C7A3),
+                shape: const CircleBorder(
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                ),
+              ),
+              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+            ),
+          ),
+
+          // Botão iniciar no centro inferior
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 100),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GameCollectGarbageScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: const Text(
+                  'Iniciar Mini Game',
+                  style: TextStyle(
+                    color: Color(0xFF333333), // Aqui você escolhe a cor desejada
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -937,15 +994,6 @@ class TelaComoJogar extends StatelessWidget {
   }
 }
 
-class TelaConfig extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Tela de Configurações')),
-      body: Center(child: Text('Você está na tela de CONFIGURAÇÕES!')),
-    );
-  }
-}
 
 class TelaCreditos extends StatelessWidget {
   @override
