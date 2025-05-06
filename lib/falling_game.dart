@@ -70,32 +70,70 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
         maxErrors: 5,
         fallSpeed: 0.9,
         goodClothes: [
-          'assets/images/jogoRoupas/Calça_marrom_boa.png',
-          'assets/images/jogoRoupas/Calça_azulClaro_boa.png',
-          'assets/images/jogoRoupas/Calça_azulEscuro_boa.png',
-          'assets/images/jogoRoupas/Calça_cinzaClaro_boa.png',
-          'assets/images/jogoRoupas/Calça_cinzaEscuro_boa.png',
-          'assets/images/jogoRoupas/Calça_preta_boa.png',
-          'assets/images/jogoRoupas/Camisa_azul_boa.png',
-          'assets/images/jogoRoupas/Camisa_branca_boa.png',
-          'assets/images/jogoRoupas/Camisa_laranja_boa.png',
-          'assets/images/jogoRoupas/Camisa_marromListrada_boa.png',
-          'assets/images/jogoRoupas/Camisa_preta_boa.png',
-          'assets/images/jogoRoupas/Camisa_verdeListrada_boa.png',
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulClaro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaClaro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaEscuro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preta_boa.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulEscuro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_branco_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_marrom_boa_F.png',
+
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_marromListrada_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_preta_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_verdeListrada_boa.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_azulClaro_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_branco_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_laranja_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_boa_F.png',
         ],
         badClothes: [
-          'assets/images/jogoRoupas/Camisa_laranja_ruim.png',
-          'assets/images/jogoRoupas/Camisa_marromListrada_ruim.png',
-          'assets/images/jogoRoupas/Camisa_preta_ruim.png',
-          'assets/images/jogoRoupas/Camisa_verdeListrada_ruim.png',
-          'assets/images/jogoRoupas/Camisa_branca_ruim.png',
-          'assets/images/jogoRoupas/Camisa_azul_ruim.png',
-          'assets/images/jogoRoupas/Shorts_azul_ruim.png',
-          'assets/images/jogoRoupas/Shorts_bege_ruim.png',
-          'assets/images/jogoRoupas/Shorts_branco_ruim.png',
-          'assets/images/jogoRoupas/Shorts_cinza_ruim.png',
-          'assets/images/jogoRoupas/Shorts_marrom_ruim.png',
-          'assets/images/jogoRoupas/Shorts_preto_ruim.png',
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulClaro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaClaro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaEscuro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preto_ruim.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulEscuro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_branco_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_marrom_ruim_F.png',
+
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_marromListrada_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_preta_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_verdeListrada_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_ruim.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_azulClaro_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_branco_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_laranja_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_ruim_F.png',
         ],
       ),
       Phase(
@@ -103,23 +141,160 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
         maxErrors: 3,
         fallSpeed: 0.6,
         goodClothes: [
-          'assets/images/jogoRoupas/Calca_jeans_boa.png',
-          'assets/images/jogoRoupas/Camisa_social_boa.png',
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_bege_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_branco_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_cinzaClaro_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_boa.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_branco_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_laranja_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_preto_boa.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulClaro_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_verde_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_vermelho_boa.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_bege_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranja_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_preto_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelha_boa.png',
+
         ],
         badClothes: [
-          'assets/images/jogoRoupas/Calca_jeans_ruim.png',
-          'assets/images/jogoRoupas/Camisa_social_ruim.png',
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_azul_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_bege_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_branco_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_cinza_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_ruim.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_branco_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_laranja_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_preto_ruim.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulClaro_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_verde_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_vermelho_ruim.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_azulClaro_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_bege_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranaja_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelho_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_preto_ruim.png',
         ],
       ),
       Phase(
         duration: 30,
         maxErrors: 2,
-        fallSpeed: 0.3,
+        fallSpeed: 0.45,
         goodClothes: [
-          'assets/images/jogoRoupas/Blusa_lan_boa.png',
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_boa.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_boa_F.png',
+
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preta_boa.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_boa_F.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_boa.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranja_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelha_boa.png',
+
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_branco_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_boa.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_boa.png',
+
+
         ],
         badClothes: [
-          'assets/images/jogoRoupas/Blusa_lan_ruim.png',
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_ruim.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_ruim_F.png',
+
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preto_ruim.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_ruim_F.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_ruim.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranaja_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelho_ruim.png',
+
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_branco_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_ruim.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_ruim.png',
         ],
       ),
     ];
