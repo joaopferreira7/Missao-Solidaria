@@ -18,6 +18,18 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
   Timer? _timer;
   bool _gameOver = false;
 
+  // Posições fixas onde os lixos podem aparecer
+  final List<Offset> _presetPositions = [
+    Offset(60, 150),
+    Offset(120, 300),
+    Offset(200, 450),
+    Offset(100, 200),
+    Offset(250, 350),
+    Offset(180, 100),
+    Offset(300, 400),
+    Offset(80, 380),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -26,12 +38,14 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
   }
 
   void _generateTrashPositions() {
+    _trashPositions.clear();
+    _collected.clear();
+
     final rand = Random();
+    final shuffled = List<Offset>.from(_presetPositions)..shuffle(rand);
+
     for (int i = 0; i < trashCount; i++) {
-      _trashPositions.add(Offset(
-        50.0 + rand.nextDouble() * 250,
-        100.0 + rand.nextDouble() * 400,
-      ));
+      _trashPositions.add(shuffled[i]);
       _collected.add(false);
     }
   }
@@ -111,22 +125,22 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                 child: Draggable<int>(
                   data: i,
                   feedback: Image.asset(
-                    'assets/images/trash.png',
-                    width: 40,
-                    height: 40,
+                    'assets/images/JogoColetarLixo/lixos/papelao.png',
+                    width: 90,
+                    height: 90,
                   ),
                   childWhenDragging: Opacity(
                     opacity: 0.0,
                     child: Image.asset(
-                      'assets/images/trash.png',
-                      width: 40,
-                      height: 40,
+                      'assets/images/JogoColetarLixo/lixos/latasRefrigerante.png',
+                      width: 90,
+                      height: 90,
                     ),
                   ),
                   child: Image.asset(
-                    'assets/images/trash.png',
-                    width: 40,
-                    height: 40,
+                    'assets/images/JogoColetarLixo/lixos/restosDeComida.png',
+                    width: 90,
+                    height: 90,
                   ),
                 ),
               ),

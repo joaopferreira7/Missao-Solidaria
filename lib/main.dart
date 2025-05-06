@@ -921,7 +921,7 @@ class TelaJogo3 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(''),
+                image: AssetImage('assets/images/JogoColetarLixo/TelaFundoPark.jpeg'),
                 fit: BoxFit.cover,
               ),
             ),
