@@ -1,8 +1,10 @@
+// Importações necessárias
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'main.dart';
 
+// Modelo de Objeto que Cai
 class FallingObject {
   final double left;
   final int id;
@@ -18,6 +20,23 @@ class FallingObject {
   });
 }
 
+// Fase do jogo com roupas específicas
+class Phase {
+  final int duration;
+  final int maxErrors;
+  final double fallSpeed;
+  final List<String> goodClothes;
+  final List<String> badClothes;
+
+  Phase({
+    required this.duration,
+    required this.maxErrors,
+    required this.fallSpeed,
+    required this.goodClothes,
+    required this.badClothes,
+  });
+}
+
 class GameFallingScreen extends StatefulWidget {
   const GameFallingScreen({Key? key}) : super(key: key);
 
@@ -29,59 +48,261 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
   List<FallingObject> objects = [];
   final Random random = Random();
   int _objectId = 0;
-  int score = 0;
   int badPassed = 0;
   int remainingTime = 60;
   Timer? spawnTimer;
   Timer? gameTimer;
   bool gameOver = false;
   bool isPaused = false;
-
   int currentPhase = 0;
-  List<Phase> phases = [
-    Phase(duration: 60, maxErrors: 5, fallSpeed: 0.9),
-    Phase(duration: 50, maxErrors: 3, fallSpeed: 0.6),
-    Phase(duration: 30, maxErrors: 2, fallSpeed: 0.3),
-  ];
 
-  final List<String> goodClothes = [
-    'assets/images/jogoRoupas/Calça_marrom_boa.png',
-    'assets/images/jogoRoupas/Calça_azulClaro_boa.png',
-    'assets/images/jogoRoupas/Calça_azulEscuro_boa.png',
-    'assets/images/jogoRoupas/Calça_cinzaClaro_boa.png',
-    'assets/images/jogoRoupas/Calça_cinzaEscuro_boa.png',
-    'assets/images/jogoRoupas/Calça_preta_boa.png',
-    'assets/images/jogoRoupas/Camisa_azul_boa.png',
-    'assets/images/jogoRoupas/Camisa_branca_boa.png',
-    'assets/images/jogoRoupas/Camisa_laranja_boa.png',
-    'assets/images/jogoRoupas/Camisa_marromListrada_boa.png',
-    'assets/images/jogoRoupas/Camisa_preta_boa.png',
-    'assets/images/jogoRoupas/Camisa_verdeListrada_boa.png',
-  ];
-
-  final List<String> badClothes = [
-    'assets/images/jogoRoupas/Camisa_laranja_ruim.png',
-    'assets/images/jogoRoupas/Camisa_marromListrada_ruim.png',
-    'assets/images/jogoRoupas/Camisa_preta_ruim.png',
-    'assets/images/jogoRoupas/Camisa_verdeListrada_ruim.png',
-    'assets/images/jogoRoupas/Camisa_branca_ruim.png',
-    'assets/images/jogoRoupas/Camisa_azul_ruim.png',
-    'assets/images/jogoRoupas/Shorts_azul_ruim.png',
-    'assets/images/jogoRoupas/Shorts_bege_ruim.png',
-    'assets/images/jogoRoupas/Shorts_branco_ruim.png',
-    'assets/images/jogoRoupas/Shorts_cinza_ruim.png',
-    'assets/images/jogoRoupas/Shorts_marrom_ruim.png',
-    'assets/images/jogoRoupas/Shorts_preto_ruim.png',
-  ];
+  late List<Phase> phases;
 
   @override
   void initState() {
     super.initState();
+
+    // Define as fases com roupas específicas
+    phases = [
+      Phase(
+        duration: 60,
+        maxErrors: 5,
+        fallSpeed: 0.9,
+        goodClothes: [
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulClaro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaClaro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaEscuro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preta_boa.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulEscuro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_branco_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_marrom_boa_F.png',
+
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_marromListrada_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_preta_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_verdeListrada_boa.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_azulClaro_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_branco_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_laranja_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_boa_F.png',
+        ],
+        badClothes: [
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulClaro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaClaro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_cinzaEscuro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preto_ruim.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulEscuro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_branco_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_marrom_ruim_F.png',
+
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_marromListrada_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_preta_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_verdeListrada_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_ruim.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_azulClaro_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_branco_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_laranja_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_ruim_F.png',
+        ],
+      ),
+      Phase(
+        duration: 50,
+        maxErrors: 3,
+        fallSpeed: 0.6,
+        goodClothes: [
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_bege_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_branco_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_cinzaClaro_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_boa.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_branco_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_laranja_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_preto_boa.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulClaro_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_verde_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_vermelho_boa.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_bege_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranja_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_preto_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelha_boa.png',
+
+        ],
+        badClothes: [
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_azul_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_bege_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_branco_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_cinza_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_ruim.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_branco_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_laranja_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_preto_ruim.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulClaro_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_verde_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_vermelho_ruim.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_azulClaro_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_bege_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranaja_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelho_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_preto_ruim.png',
+        ],
+      ),
+      Phase(
+        duration: 30,
+        maxErrors: 2,
+        fallSpeed: 0.45,
+        goodClothes: [
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_boa.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_boa.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_boa_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_boa_F.png',
+
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preta_boa.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_boa_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_boa_F.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_boa.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_boa.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranja_boa.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelha_boa.png',
+
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_branco_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_boa.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_boa.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_boa.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_boa.png',
+
+
+        ],
+        badClothes: [
+          //camisa M
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_laranja_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_branca_ruim.png',
+          'assets/images/jogoRoupas/camisa/masculino/Camisa_azul_ruim.png',
+
+          //camisa F
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_rosa_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_verde_ruim_F.png',
+          'assets/images/jogoRoupas/camisa/feminino/Camisa_cinzaClaro_ruim_F.png',
+
+          //calça M
+          'assets/images/jogoRoupas/calça/masculino/Calça_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_marrom_ruim.png',
+          'assets/images/jogoRoupas/calça/masculino/Calça_preto_ruim.png',
+
+          //calça F
+          'assets/images/jogoRoupas/calça/feminino/Calça_azulClaro_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_bege_ruim_F.png',
+          'assets/images/jogoRoupas/calça/feminino/Calça_cinzaClaro_ruim_F.png',
+
+          //tenis
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_bege_ruim.png',
+          'assets/images/jogoRoupas/sapato/masculino/Tenis_cinzaClaro_ruim.png',
+
+          //sapatilha
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_branco_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_laranaja_ruim.png',
+          'assets/images/jogoRoupas/sapato/feminino/Sapatilha_vermelho_ruim.png',
+
+          //shorts
+          'assets/images/jogoRoupas/shorts/Shorts_branco_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_marrom_ruim.png',
+          'assets/images/jogoRoupas/shorts/Shorts_preto_ruim.png',
+
+          //saia
+          'assets/images/jogoRoupas/vestido/Vestido_azulEscuro_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_laranja_ruim.png',
+          'assets/images/jogoRoupas/vestido/Vestido_rosa_ruim.png',
+        ],
+      ),
+    ];
     _startPhase();
   }
 
   void _startPhase() {
     Phase current = phases[currentPhase];
+    remainingTime = current.duration;
 
     spawnTimer = Timer.periodic(
       Duration(milliseconds: (current.fallSpeed * 1000).toInt()),
@@ -131,33 +352,31 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
   }
 
   void _showVictoryDialog() {
-    _pauseGame(); // Pausa o jogo e os objetos
+    _pauseGame();
     showDialog(
       context: context,
-      barrierDismissible: false, // Evita fechar acidentalmente
+      barrierDismissible: false,
       builder: (_) => AlertDialog(
         title: const Text('Parabéns!'),
-        content: Text('Você completou a fase ${currentPhase + 1}!\nPontuação: $score'),
-        actions: [
-          TextButton(
+        content: Text('Você completou a fase ${currentPhase + 1}'),
+            actions: [
+            TextButton(
             onPressed: () {
-              Navigator.pop(context); // Fecha o dialog
-              Future.delayed(const Duration(milliseconds: 100), () {
-                setState(() {
-                  currentPhase++;
-                  score = 0;
-                  badPassed = 0;
-                  remainingTime = phases[currentPhase].duration;
-                  objects.clear();
-                });
-                _resumeGame(); // Retoma o jogo
-                _startPhase(); // Inicia a próxima fase
-              });
-            },
-            child: const Text('Próxima Fase'),
-          ),
-        ],
+      Navigator.pop(context);
+      Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+      currentPhase++;
+      badPassed = 0;
+      objects.clear();
+      });
+      _resumeGame();
+      _startPhase();
+      });
+      },
+        child: const Text('Próxima Fase'),
       ),
+      ],
+    ),
     );
   }
 
@@ -167,16 +386,13 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Fim de Jogo!'),
-        content: Text('Pontuação final: $score'),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               Future.delayed(const Duration(milliseconds: 100), () {
                 setState(() {
-                  score = 0;
                   badPassed = 0;
-                  remainingTime = phases[currentPhase].duration;
                   objects.clear();
                   _startPhase();
                 });
@@ -200,10 +416,11 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
   }
 
   void _addFallingObject() {
+    Phase current = phases[currentPhase];
     bool isGood = random.nextBool();
     String imagePath = isGood
-        ? goodClothes[random.nextInt(goodClothes.length)]
-        : badClothes[random.nextInt(badClothes.length)];
+        ? current.goodClothes[random.nextInt(current.goodClothes.length)]
+        : current.badClothes[random.nextInt(current.badClothes.length)];
 
     AnimationController controller = AnimationController(
       duration: const Duration(seconds: 2),
@@ -229,10 +446,7 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       obj.controller.dispose();
       objects.removeWhere((o) => o.id == obj.id);
       if (obj.isGood) {
-        score -= 1;
         badPassed++;
-      } else {
-        score += 2;
       }
       if (badPassed >= phases[currentPhase].maxErrors) {
         _endPhase(lost: true);
@@ -245,9 +459,7 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       obj.controller.dispose();
       objects.removeWhere((o) => o.id == obj.id);
       if (obj.isGood) {
-        score += 1;
       } else {
-        score -= 2;
         badPassed++;
       }
       if (badPassed >= phases[currentPhase].maxErrors) {
@@ -290,9 +502,7 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
               left: 10,
               child: Row(
                 children: [
-                  _buildStatText('⏱ $remainingTime s'),
-                  const SizedBox(width: 16),
-                  _buildStatText('⭐ Pontos: $score'),
+                  _buildStatText('⏱ Tempo: $remainingTime s'),
                   const SizedBox(width: 16),
                   _buildStatText('❌ Erros: $badPassed/${phases[currentPhase].maxErrors}'),
                 ],
@@ -396,16 +606,4 @@ class FallingWidget extends StatelessWidget {
       },
     );
   }
-}
-
-class Phase {
-  final int duration;
-  final int maxErrors;
-  final double fallSpeed;
-
-  Phase({
-    required this.duration,
-    required this.maxErrors,
-    required this.fallSpeed,
-  });
 }

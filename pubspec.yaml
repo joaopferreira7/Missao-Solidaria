@@ -32,5 +32,15 @@ flutter:
   assets:
     - assets/images/
     - assets/images/jogoRoupas/
+    - assets/images/jogoRoupas/calça/masculino/
+    - assets/images/jogoRoupas/calça/feminino/
+    - assets/images/jogoRoupas/camisa/masculino/
+    - assets/images/jogoRoupas/camisa/feminino/
+    - assets/images/jogoRoupas/shorts/
+    - assets/images/jogoRoupas/vestido/
+    - assets/images/jogoRoupas/sapato/masculino/
+    - assets/images/jogoRoupas/sapato/feminino/
     - assets/images/jogoComidas/
     - assets/images/jogoComidas/alimentos/
+    - assets/images/JogoColetarLixo/
+    - assets/images/JogoColetarLixo/lixos/
