@@ -48,7 +48,6 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
   List<FallingObject> objects = [];
   final Random random = Random();
   int _objectId = 0;
-  int score = 0;
   int badPassed = 0;
   int remainingTime = 60;
   Timer? spawnTimer;
@@ -359,7 +358,7 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       barrierDismissible: false,
       builder: (_) => AlertDialog(
         title: const Text('Parabéns!'),
-        content: Text('Você completou a fase ${currentPhase + 1}!Pontuação: $score'),
+        content: Text('Você completou a fase ${currentPhase + 1}'),
             actions: [
             TextButton(
             onPressed: () {
@@ -367,7 +366,6 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
       currentPhase++;
-      score = 0;
       badPassed = 0;
       objects.clear();
       });
@@ -388,14 +386,12 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Fim de Jogo!'),
-        content: Text('Pontuação final: $score'),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               Future.delayed(const Duration(milliseconds: 100), () {
                 setState(() {
-                  score = 0;
                   badPassed = 0;
                   objects.clear();
                   _startPhase();
@@ -450,10 +446,7 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       obj.controller.dispose();
       objects.removeWhere((o) => o.id == obj.id);
       if (obj.isGood) {
-        score -= 1;
         badPassed++;
-      } else {
-        score += 2;
       }
       if (badPassed >= phases[currentPhase].maxErrors) {
         _endPhase(lost: true);
@@ -466,9 +459,7 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
       obj.controller.dispose();
       objects.removeWhere((o) => o.id == obj.id);
       if (obj.isGood) {
-        score += 1;
       } else {
-        score -= 2;
         badPassed++;
       }
       if (badPassed >= phases[currentPhase].maxErrors) {
@@ -511,9 +502,7 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
               left: 10,
               child: Row(
                 children: [
-                  _buildStatText('⏱ $remainingTime s'),
-                  const SizedBox(width: 16),
-                  _buildStatText('⭐ Pontos: $score'),
+                  _buildStatText('⏱ Tempo: $remainingTime s'),
                   const SizedBox(width: 16),
                   _buildStatText('❌ Erros: $badPassed/${phases[currentPhase].maxErrors}'),
                 ],

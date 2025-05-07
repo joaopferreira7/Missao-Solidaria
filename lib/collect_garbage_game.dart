@@ -112,7 +112,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
           // Fundo do parque
           Positioned.fill(
             child: Image.asset(
-              'assets/images/JogoColetarLixo/TelaFundoPark.jpeg',
+              'assets/images/JogoColetarLixo/imagemParque_2.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -125,14 +125,14 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                 child: Draggable<int>(
                   data: i,
                   feedback: Image.asset(
-                    'assets/images/JogoColetarLixo/lixos/papelao.png',
+                    'assets/images/JogoColetarLixo/lixos/latasRefrigerante.png',
                     width: 90,
                     height: 90,
                   ),
                   childWhenDragging: Opacity(
                     opacity: 0.0,
                     child: Image.asset(
-                      'assets/images/JogoColetarLixo/lixos/latasRefrigerante.png',
+                      'assets/images/JogoColetarLixo/lixos/papelao.png',
                       width: 90,
                       height: 90,
                     ),
@@ -146,15 +146,15 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
               ),
           // Área da cesta de lixo
           Positioned(
-            bottom: 20,
-            right: 20,
+            bottom: 0,
+            right: 30,
             child: DragTarget<int>(
               key: _binKey,
               builder: (context, candidateData, rejectedData) {
                 return Image.asset(
-                  'assets/images/bin.png',
-                  width: 80,
-                  height: 80,
+                  'assets/images/JogoColetarLixo/cestoDeLixo.png',
+                  width: 340,
+                  height: 340,
                 );
               },
               onAccept: (index) {

@@ -13,7 +13,6 @@ class GameSelectFoodScreen extends StatefulWidget {
 }
 
 class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
-  int pontos = 0;
   late int tempoRestante;
   Timer? _timer;
   bool _telaFinalMostrada = false;
@@ -87,7 +86,6 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
       barrierDismissible: false,
       builder: (_) => AlertDialog(
         title: Text(mensagem),
-        content: Text("Sua pontuação: $pontos"),
         actions: [
           TextButton(
             onPressed: () {
@@ -110,7 +108,6 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
   void reiniciarJogo() {
     setState(() {
-      pontos = 0;
       tempoRestante = widget.tempoInicial;
       _telaFinalMostrada = false;
       itensNaCesta.clear();
@@ -211,10 +208,6 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                   if (itensNaCesta.contains(item)) return;
 
                   itensNaCesta.add(item);
-
-                  if (itensCorretos.contains(item)) {
-                    pontos++;
-                  }
 
                   if (itensNaCesta.length == widget.quantidadeItens) {
                     final bool todosCorretos = itensNaCesta.every((item) => itensCorretos.contains(item));
