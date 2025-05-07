@@ -11,12 +11,21 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
   final List<Map<String, String>> trashItems = [
     {"name": "Lata", "image": "assets/images/JogoColetarLixo/lixos/latasRefrigerante.png"},
     {"name": "Papelão", "image": "assets/images/JogoColetarLixo/lixos/papelao.png"},
-    {"name": "Restos", "image": "assets/images/JogoColetarLixo/lixos/restosDeComida.png"},
+    {"name": "Restos de Comida", "image": "assets/images/JogoColetarLixo/lixos/restosDeComida.png"},
     {"name": "Garrafa", "image": "assets/images/JogoColetarLixo/lixos/garrafasPlasticas.png"},
     {"name": "Entulho", "image": "assets/images/JogoColetarLixo/lixos/entulho.png"},
   ];
 
-  late List<Offset> _positions;
+  final List<Map<String, dynamic>> positionConfigs = [
+    {"offset": Offset(60, 100), "allowed": ["Lata", "Garrafa", "Papelão"]}, // em cima da árvore
+    {"offset": Offset(100, 420), "allowed": ["Entulho", "Restos de Comida", "Papelão"]}, // ao lado da gangorra
+    {"offset": Offset(220, 360), "allowed": ["Garrafa", "Lata"]}, // escorregador
+    {"offset": Offset(150, 500), "allowed": ["Restos de Comida", "Entulho", "Papelão", "Lata", "Garrafa"]}, // chão do parquinho
+    {"offset": Offset(300, 520), "allowed": ["Lata", "Garrafa"]}, // perto das flores
+    {"offset": Offset(250, 250), "allowed": ["Lata", "Garrafa", "Papelão", "Restos de Comida"]} // centro
+  ];
+
+  List<Map<String, dynamic>> activeTrash = [];
   int currentIndex = 0;
   int timeLeft = 5;
   Timer? _timer;
@@ -25,23 +34,30 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
   @override
   void initState() {
     super.initState();
-    _shuffleTrash();
-    _generatePositions();
+    _setupGame();
+  }
+
+  void _setupGame() {
+    _generateTrashItems();
     _startTimer();
   }
 
-  void _shuffleTrash() {
-    trashItems.shuffle(Random());
-  }
+  void _generateTrashItems() {
+    activeTrash.clear();
+    final random = Random();
+    final List<Map<String, dynamic>> shuffledPositions = List.from(positionConfigs)..shuffle();
 
-  void _generatePositions() {
-    final List<Offset> basePositions = [
-      Offset(50, 150), Offset(120, 300), Offset(200, 450),
-      Offset(100, 200), Offset(250, 350), Offset(180, 100),
-      Offset(300, 400), Offset(80, 380),
-    ];
-    basePositions.shuffle(Random());
-    _positions = basePositions.take(5).toList();
+    for (var config in shuffledPositions.take(5)) {
+      final allowed = config["allowed"];
+      final possible = trashItems.where((item) => allowed.contains(item["name"])).toList();
+      final selected = possible[random.nextInt(possible.length)];
+
+      activeTrash.add({
+        "name": selected["name"],
+        "image": selected["image"],
+        "position": config["offset"]
+      });
+    }
   }
 
   void _startTimer() {
@@ -57,7 +73,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
   }
 
   void _nextTrashOrEnd() {
-    if (currentIndex < trashItems.length - 1) {
+    if (currentIndex < activeTrash.length - 1) {
       setState(() {
         currentIndex++;
         timeLeft = 5;
@@ -93,10 +109,8 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     setState(() {
       currentIndex = 0;
       timeLeft = 5;
-      _shuffleTrash();
-      _generatePositions();
       _gameOver = false;
-      _startTimer();
+      _setupGame();
     });
   }
 
@@ -117,22 +131,21 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
               fit: BoxFit.cover,
             ),
           ),
-          // Exibir todos os lixos
-          for (int i = 0; i < trashItems.length; i++)
-            Positioned(
-              left: _positions[i].dx,
-              top: _positions[i].dy,
-              child: Draggable<String>(
-                data: trashItems[i]['name']!,
-                feedback: Image.asset(trashItems[i]['image']!, width: 140, height: 140),
-                childWhenDragging: Opacity(
-                  opacity: 0.5,
-                  child: Image.asset(trashItems[i]['image']!, width: 140, height: 140),
+          for (int i = 0; i < activeTrash.length; i++)
+            if (i >= currentIndex)
+              Positioned(
+                left: activeTrash[i]['position'].dx,
+                top: activeTrash[i]['position'].dy,
+                child: Draggable<String>(
+                  data: activeTrash[i]['name'],
+                  feedback: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
+                  childWhenDragging: Opacity(
+                    opacity: 0.5,
+                    child: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
+                  ),
+                  child: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
                 ),
-                child: Image.asset(trashItems[i]['image']!, width: 140, height: 140),
               ),
-            ),
-          // Cesta de lixo
           Positioned(
             bottom: 0,
             right: 30,
@@ -145,15 +158,20 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                 );
               },
               onAccept: (data) {
-                if (data == trashItems[currentIndex]['name']) {
-                  _nextTrashOrEnd();
+                if (data == activeTrash[currentIndex]['name']) {
+                  setState(() {
+                    timeLeft = 5;
+                    currentIndex++;
+                  });
+                  if (currentIndex >= activeTrash.length) {
+                    _endGame(true);
+                  }
                 } else {
                   _endGame(false);
                 }
               },
             ),
           ),
-          // UI com tempo e nome
           Positioned(
             top: 60,
             left: 20,
@@ -161,7 +179,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Encontre: ${trashItems[currentIndex]['name']}',
+                  'Encontre: ${activeTrash[currentIndex]['name']}',
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white, shadows: [
                     Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 1))
                   ]),
