@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 class GameCollectGarbageScreen extends StatefulWidget {
   @override
@@ -8,71 +8,74 @@ class GameCollectGarbageScreen extends StatefulWidget {
 }
 
 class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
-  final List<Offset> _trashPositions = [];
-  final List<bool> _collected = [];
-  final int trashCount = 5;
-  final GlobalKey _binKey = GlobalKey();
-  int collectedCount = 0;
+  final List<Map<String, String>> trashItems = [
+    {"name": "Lata", "image": "assets/images/JogoColetarLixo/lixos/latasRefrigerante.png"},
+    {"name": "Papelão", "image": "assets/images/JogoColetarLixo/lixos/papelao.png"},
+    {"name": "Restos", "image": "assets/images/JogoColetarLixo/lixos/restosDeComida.png"},
+    {"name": "Garrafa", "image": "assets/images/JogoColetarLixo/lixos/garrafasPlasticas.png"},
+    {"name": "Entulho", "image": "assets/images/JogoColetarLixo/lixos/entulho.png"},
+  ];
 
-  int _timeLeft = 60;
+  late List<Offset> _positions;
+  int currentIndex = 0;
+  int timeLeft = 5;
   Timer? _timer;
   bool _gameOver = false;
-
-  // Posições fixas onde os lixos podem aparecer
-  final List<Offset> _presetPositions = [
-    Offset(60, 150),
-    Offset(120, 300),
-    Offset(200, 450),
-    Offset(100, 200),
-    Offset(250, 350),
-    Offset(180, 100),
-    Offset(300, 400),
-    Offset(80, 380),
-  ];
 
   @override
   void initState() {
     super.initState();
-    _generateTrashPositions();
+    _shuffleTrash();
+    _generatePositions();
     _startTimer();
   }
 
-  void _generateTrashPositions() {
-    _trashPositions.clear();
-    _collected.clear();
+  void _shuffleTrash() {
+    trashItems.shuffle(Random());
+  }
 
-    final rand = Random();
-    final shuffled = List<Offset>.from(_presetPositions)..shuffle(rand);
-
-    for (int i = 0; i < trashCount; i++) {
-      _trashPositions.add(shuffled[i]);
-      _collected.add(false);
-    }
+  void _generatePositions() {
+    final List<Offset> basePositions = [
+      Offset(50, 150), Offset(120, 300), Offset(200, 450),
+      Offset(100, 200), Offset(250, 350), Offset(180, 100),
+      Offset(300, 400), Offset(80, 380),
+    ];
+    basePositions.shuffle(Random());
+    _positions = basePositions.take(5).toList();
   }
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (_timeLeft > 0) {
+      if (timeLeft > 0) {
         setState(() {
-          _timeLeft--;
+          timeLeft--;
         });
       } else {
-        _endGame(false);
+        _nextTrashOrEnd();
       }
     });
   }
 
-  void _endGame(bool victory) {
+  void _nextTrashOrEnd() {
+    if (currentIndex < trashItems.length - 1) {
+      setState(() {
+        currentIndex++;
+        timeLeft = 5;
+      });
+    } else {
+      _endGame(true);
+    }
+  }
+
+  void _endGame(bool success) {
     _timer?.cancel();
     _gameOver = true;
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (_) => AlertDialog(
-        title: Text(victory ? 'Parabéns!' : 'Tempo esgotado!'),
-        content: Text(victory
-            ? 'Você limpou todo o parque!'
-            : 'Você não conseguiu limpar tudo a tempo.'),
+        title: Text(success ? 'Parabéns!' : 'Tempo esgotado!'),
+        content: Text(success ? 'Você limpou todo o parque!' : 'Você não conseguiu completar o desafio.'),
         actions: [
           TextButton(
             child: Text('Jogar Novamente'),
@@ -88,12 +91,11 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
 
   void _restartGame() {
     setState(() {
-      _trashPositions.clear();
-      _collected.clear();
-      collectedCount = 0;
-      _timeLeft = 60;
+      currentIndex = 0;
+      timeLeft = 5;
+      _shuffleTrash();
+      _generatePositions();
       _gameOver = false;
-      _generateTrashPositions();
       _startTimer();
     });
   }
@@ -109,47 +111,32 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Fundo do parque
           Positioned.fill(
             child: Image.asset(
               'assets/images/JogoColetarLixo/imagemParque_2.png',
               fit: BoxFit.cover,
             ),
           ),
-          // Lixos
-          for (int i = 0; i < trashCount; i++)
-            if (!_collected[i])
-              Positioned(
-                left: _trashPositions[i].dx,
-                top: _trashPositions[i].dy,
-                child: Draggable<int>(
-                  data: i,
-                  feedback: Image.asset(
-                    'assets/images/JogoColetarLixo/lixos/latasRefrigerante.png',
-                    width: 90,
-                    height: 90,
-                  ),
-                  childWhenDragging: Opacity(
-                    opacity: 0.0,
-                    child: Image.asset(
-                      'assets/images/JogoColetarLixo/lixos/papelao.png',
-                      width: 90,
-                      height: 90,
-                    ),
-                  ),
-                  child: Image.asset(
-                    'assets/images/JogoColetarLixo/lixos/restosDeComida.png',
-                    width: 90,
-                    height: 90,
-                  ),
+          // Exibir todos os lixos
+          for (int i = 0; i < trashItems.length; i++)
+            Positioned(
+              left: _positions[i].dx,
+              top: _positions[i].dy,
+              child: Draggable<String>(
+                data: trashItems[i]['name']!,
+                feedback: Image.asset(trashItems[i]['image']!, width: 140, height: 140),
+                childWhenDragging: Opacity(
+                  opacity: 0.5,
+                  child: Image.asset(trashItems[i]['image']!, width: 140, height: 140),
                 ),
+                child: Image.asset(trashItems[i]['image']!, width: 140, height: 140),
               ),
-          // Área da cesta de lixo
+            ),
+          // Cesta de lixo
           Positioned(
             bottom: 0,
             right: 30,
-            child: DragTarget<int>(
-              key: _binKey,
+            child: DragTarget<String>(
               builder: (context, candidateData, rejectedData) {
                 return Image.asset(
                   'assets/images/JogoColetarLixo/cestoDeLixo.png',
@@ -157,50 +144,38 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                   height: 340,
                 );
               },
-              onAccept: (index) {
-                if (!_collected[index]) {
-                  setState(() {
-                    _collected[index] = true;
-                    collectedCount++;
-                    if (collectedCount == trashCount) {
-                      _endGame(true);
-                    }
-                  });
+              onAccept: (data) {
+                if (data == trashItems[currentIndex]['name']) {
+                  _nextTrashOrEnd();
+                } else {
+                  _endGame(false);
                 }
               },
             ),
           ),
-          // UI superior
+          // UI com tempo e nome
           Positioned(
-            top: 40,
+            top: 60,
             left: 20,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Lixos coletados: $collectedCount / $trashCount',
-                  style: TextStyle(fontSize: 20, color: Colors.white, shadows: [
-                    Shadow(
-                      blurRadius: 4,
-                      color: Colors.black,
-                      offset: Offset(2, 2),
-                    )
+                  'Encontre: ${trashItems[currentIndex]['name']}',
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white, shadows: [
+                    Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 1))
                   ]),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Tempo restante: $_timeLeft s',
-                  style: TextStyle(fontSize: 20, color: Colors.white, shadows: [
-                    Shadow(
-                      blurRadius: 4,
-                      color: Colors.black,
-                      offset: Offset(2, 2),
-                    )
+                  'Tempo: $timeLeft s',
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white, shadows: [
+                    Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 1))
                   ]),
                 ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
