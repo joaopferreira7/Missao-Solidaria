@@ -12,17 +12,17 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     {"name": "Lata", "image": "assets/images/JogoColetarLixo/lixos/latasRefrigerante.png"},
     {"name": "Papelão", "image": "assets/images/JogoColetarLixo/lixos/papelao.png"},
     {"name": "Restos de Comida", "image": "assets/images/JogoColetarLixo/lixos/restosDeComida.png"},
-    {"name": "Garrafa", "image": "assets/images/JogoColetarLixo/lixos/garrafasPlasticas.png"},
+    {"name": "Garrafa", "image": "assets/images/JogoColetarLixo/lixos/garrafa.png"},
     {"name": "Entulho", "image": "assets/images/JogoColetarLixo/lixos/entulho.png"},
   ];
 
   final List<Map<String, dynamic>> positionConfigs = [
     {"offset": Offset(60, 100), "allowed": ["Lata", "Garrafa", "Papelão"]}, // em cima da árvore
-    {"offset": Offset(100, 420), "allowed": ["Entulho", "Restos de Comida", "Papelão"]}, // ao lado da gangorra
-    {"offset": Offset(220, 360), "allowed": ["Garrafa", "Lata"]}, // escorregador
+    {"offset": Offset(20, 530), "allowed": ["Entulho", "Restos de Comida", "Papelão"]}, // ao lado da gangorra
+    {"offset": Offset(280, 560), "allowed": ["Garrafa", "Lata"]}, // escorregador
     {"offset": Offset(150, 500), "allowed": ["Restos de Comida", "Entulho", "Papelão", "Lata", "Garrafa"]}, // chão do parquinho
-    {"offset": Offset(300, 520), "allowed": ["Lata", "Garrafa"]}, // perto das flores
-    {"offset": Offset(250, 250), "allowed": ["Lata", "Garrafa", "Papelão", "Restos de Comida"]} // centro
+    {"offset": Offset(300, 620), "allowed": ["Lata", "Garrafa"]}, // perto das flores
+    {"offset": Offset(250, 250), "allowed": ["Lata", "Garrafa", "Papelão"]} // centro
   ];
 
   List<Map<String, dynamic>> activeTrash = [];
@@ -138,12 +138,12 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                 top: activeTrash[i]['position'].dy,
                 child: Draggable<String>(
                   data: activeTrash[i]['name'],
-                  feedback: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
+                  feedback: Image.asset(activeTrash[i]['image'], width: 160, height: 160),
                   childWhenDragging: Opacity(
                     opacity: 0.5,
-                    child: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
+                    child: Image.asset(activeTrash[i]['image'], width: 160, height: 160),
                   ),
-                  child: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
+                  child: Image.asset(activeTrash[i]['image'], width: 160, height: 160),
                 ),
               ),
           Positioned(
