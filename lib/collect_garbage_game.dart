@@ -133,9 +133,27 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
               _restartGame();
             },
           ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+              );
+            },
+            child: const Text('Sair'),
+          ),
         ],
       ),
     );
+  }
+
+  void _pauseGame() {
+    _timer?.cancel();
+  }
+
+  void _resumeGame() {
+    _startTimer();
   }
 
   void _advanceToNextPhase() {
@@ -218,16 +236,39 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
               Positioned(
                 left: activeTrash[i]['position'].dx,
                 top: activeTrash[i]['position'].dy,
-                child: Draggable<String>(
-                  data: activeTrash[i]['name'],
-                  feedback: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
-                  childWhenDragging: Opacity(
-                    opacity: 0.5,
-                    child: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTapDown: (_) {
+                    debugPrint('Item tocado: ${activeTrash[i]['name']}');
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: Draggable<String>(
+                      data: activeTrash[i]['name'],
+                      feedback: Image.asset(
+                        activeTrash[i]['image'],
+                        width: 140,
+                        height: 140,
+                      ),
+                      childWhenDragging: Opacity(
+                        opacity: 0.5,
+                        child: Image.asset(
+                          activeTrash[i]['image'],
+                          width: 140,
+                          height: 140,
+                        ),
+                      ),
+                      child: Image.asset(
+                        activeTrash[i]['image'],
+                        width: 140,
+                        height: 140,
+                      ),
+                    ),
                   ),
-                  child: Image.asset(activeTrash[i]['image'], width: 140, height: 140),
                 ),
               ),
+
 
           Positioned(
             bottom: 0,
@@ -281,6 +322,52 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                 ],
               ),
             ),
+
+          // Botão de sair
+          Positioned(
+            top: 55,
+            right: -10,
+            child: ElevatedButton(
+              onPressed: () {
+                _pauseGame();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Sair do Jogo'),
+                      content: const Text('Você deseja voltar ao menu anterior?'),
+                      actions: [
+                        TextButton(
+                          child: const Text('Não'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            _resumeGame();
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Sim'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE4C7A3),
+                shape: const CircleBorder(
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                ),
+              ),
+              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+            ),
+          ),
         ],
       ),
     );

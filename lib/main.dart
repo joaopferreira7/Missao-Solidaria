@@ -929,8 +929,8 @@ class TelaJogo3 extends StatelessWidget {
 
           // Botão Fechar no topo direito
           Positioned(
-            top: 40,
-            right: -5,
+            top: 55,
+            right: -10,
             child: ElevatedButton(
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
