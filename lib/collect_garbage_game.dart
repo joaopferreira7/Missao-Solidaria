@@ -28,19 +28,21 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     ],
     // Fase 2
     [
-      {"offset": Offset(80, 120), "allowed": ["Lata", "Papelão"]},
+      {"offset": Offset(10, 200), "allowed": ["Lata", "Papelão"]},
       {"offset": Offset(240, 530), "allowed": ["Entulho", "Garrafa"]},
-      {"offset": Offset(100, 460), "allowed": ["Restos de Comida", "Entulho"]},
-      {"offset": Offset(280, 620), "allowed": ["Garrafa", "Papelão"]},
+      {"offset": Offset(30, 420), "allowed": ["Restos de Comida", "Entulho"]},
+      {"offset": Offset(230, 320), "allowed": ["Garrafa", "Papelão"]},
       {"offset": Offset(20, 300), "allowed": ["Lata", "Restos de Comida"]},
-      {"offset": Offset(310, 220), "allowed": ["Garrafa", "Entulho"]},
+      {"offset": Offset(300, 240), "allowed": ["Garrafa", "Entulho"]},
+
+
     ],
     // Fase 3
     [
       {"offset": Offset(100, 150), "allowed": ["Papelão", "Entulho"]},
       {"offset": Offset(30, 550), "allowed": ["Garrafa", "Lata"]},
       {"offset": Offset(270, 450), "allowed": ["Restos de Comida", "Papelão"]},
-      {"offset": Offset(120, 600), "allowed": ["Entulho", "Lata"]},
+      {"offset": Offset(120, 500), "allowed": ["Entulho", "Lata"]},
       {"offset": Offset(180, 320), "allowed": ["Garrafa", "Lata"]},
       {"offset": Offset(50, 400), "allowed": ["Restos de Comida", "Papelão"]},
       {"offset": Offset(250, 300), "allowed": ["Lata", "Papelão", "Garrafa"]},
@@ -241,28 +243,36 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                   onTapDown: (_) {
                     debugPrint('Item tocado: ${activeTrash[i]['name']}');
                   },
-                  child: SizedBox(
-                    width: 150,
-                    height: 150,
-                    child: Draggable<String>(
-                      data: activeTrash[i]['name'],
-                      feedback: Image.asset(
-                        activeTrash[i]['image'],
-                        width: 140,
-                        height: 140,
-                      ),
-                      childWhenDragging: Opacity(
-                        opacity: 0.5,
-                        child: Image.asset(
-                          activeTrash[i]['image'],
-                          width: 140,
-                          height: 140,
+                  child: Container(
+                    // Ajuste esses valores para mudar a hitbox
+                    width: 130,  // Largura da hitbox
+                    height: 130, // Altura da hitbox
+                    color: Colors.transparent, // Mantém transparente
+                    child: Center(
+                      child: SizedBox(
+                        width: 130,  // Largura visual do item
+                        height: 130, // Altura visual do item
+                        child: Draggable<String>(
+                          data: activeTrash[i]['name'],
+                          feedback: Image.asset(
+                            activeTrash[i]['image'],
+                            width: 130,
+                            height: 130,
+                          ),
+                          childWhenDragging: Opacity(
+                            opacity: 0.5,
+                            child: Image.asset(
+                              activeTrash[i]['image'],
+                              width: 130,
+                              height: 130,
+                            ),
+                          ),
+                          child: Image.asset(
+                            activeTrash[i]['image'],
+                            width: 130,
+                            height: 130,
+                          ),
                         ),
-                      ),
-                      child: Image.asset(
-                        activeTrash[i]['image'],
-                        width: 140,
-                        height: 140,
                       ),
                     ),
                   ),
