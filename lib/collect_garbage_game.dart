@@ -52,7 +52,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
   final List<String> backgroundImages = [
     'assets/images/JogoColetarLixo/imagemParque_2.png',
     'assets/images/JogoColetarLixo/imagemParque_1.png',
-    'assets/images/JogoColetarLixo/TelaFundoPark.jpeg',
+    'assets/images/JogoColetarLixo/imagemParque_3.png',
   ];
 
   int currentPhase = 0;

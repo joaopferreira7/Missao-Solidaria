@@ -176,7 +176,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoComidas/Jogo 1 - Referência final (11).png'),
+                image: AssetImage('assets/images/jogoComidas/Tela_fundo_jogo_Alimentos.png'),
                 fit: BoxFit.cover,
               ),
             ),

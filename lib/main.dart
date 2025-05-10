@@ -117,16 +117,7 @@ class TelaInicial extends StatelessWidget {
                   ),
                   padding: EdgeInsets.zero,
                 ),
-                child: Center(
-                  child: Text(
-                    'X',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                      color: Color(0xFF333333),
-                    ),
-                  ),
-                ),
+                child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
               ),
             ),
           ),
@@ -532,7 +523,10 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TelaHistoria_8()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFE4C7A3),
@@ -999,8 +993,67 @@ class TelaCreditos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tela de Créditos')),
-      body: Center(child: Text('Você está na tela de CRÉDITOS!')),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/Tela_créditos.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Sair do Jogo"),
+                        content: Text("Você deseja sair do jogo?"),
+                        actions: [
+                          TextButton(
+                            child: Text("Não"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text("Sim"),
+                            onPressed: () {
+                              SystemNavigator.pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
