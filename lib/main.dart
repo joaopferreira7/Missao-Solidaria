@@ -990,6 +990,7 @@ class TelaComoJogar extends StatelessWidget {
 
 
 class TelaCreditos extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1003,6 +1004,29 @@ class TelaCreditos extends StatelessWidget {
               image: DecorationImage(
                 image: AssetImage('assets/images/Tela_créditos.png'),
                 fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          Positioned(
+            top: 50,
+            left: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Volta para a tela anterior
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(Icons.arrow_back, color: Color(0xFF333333), size: 22),
               ),
             ),
           ),
