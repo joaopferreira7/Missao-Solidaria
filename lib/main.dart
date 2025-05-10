@@ -117,7 +117,11 @@ class TelaInicial extends StatelessWidget {
                   ),
                   padding: EdgeInsets.zero,
                 ),
-                child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
+                ),
               ),
             ),
           ),
@@ -666,9 +670,10 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
       child: ElevatedButton(
         onPressed: () => selecionarJogo(numeroDoJogo),
         style: ElevatedButton.styleFrom(
-          backgroundColor: jogoSelecionado == numeroDoJogo
-              ? Colors.green[300]
-              : Color(0xFFE4C7A3),
+          backgroundColor:
+              jogoSelecionado == numeroDoJogo
+                  ? Colors.green[300]
+                  : Color(0xFFE4C7A3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
@@ -729,7 +734,9 @@ class _TelaJogo1State extends State<TelaJogo1> {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoComidas/fundo_jogoComida.png'),
+                image: AssetImage(
+                  'assets/images/jogoComidas/fundo_jogoComida.png',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -747,7 +754,11 @@ class _TelaJogo1State extends State<TelaJogo1> {
                   side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
                 ),
               ),
-              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+              child: const Icon(
+                Icons.close,
+                color: Color(0xFF333333),
+                size: 22,
+              ),
             ),
           ),
 
@@ -778,10 +789,11 @@ class _TelaJogo1State extends State<TelaJogo1> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GameSelectFoodScreen(
-                        tempoInicial: _tempoInicial,
-                        quantidadeItens: _quantidadeItens,
-                      ),
+                      builder:
+                          (context) => GameSelectFoodScreen(
+                            tempoInicial: _tempoInicial,
+                            quantidadeItens: _quantidadeItens,
+                          ),
                     ),
                   );
                 },
@@ -792,7 +804,10 @@ class _TelaJogo1State extends State<TelaJogo1> {
                     side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 child: const Text(
                   'Iniciar Mini Game',
@@ -805,6 +820,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
       ),
     );
   }
+
   // Botão reutilizável
   Widget _botaoDificuldade(String label) {
     final bool selecionado = _dificuldadeSelecionada == label;
@@ -813,7 +829,8 @@ class _TelaJogo1State extends State<TelaJogo1> {
       child: ElevatedButton(
         onPressed: () => _selecionarDificuldade(label),
         style: ElevatedButton.styleFrom(
-          backgroundColor: selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
+          backgroundColor:
+              selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
           padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
@@ -842,7 +859,9 @@ class TelaJogo2 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoRoupas/fundo_jogoRoupas.jpeg'),
+                image: AssetImage(
+                  'assets/images/jogoRoupas/fundo_jogoRoupas.jpeg',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -860,7 +879,11 @@ class TelaJogo2 extends StatelessWidget {
                   side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
                 ),
               ),
-              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+              child: const Icon(
+                Icons.close,
+                color: Color(0xFF333333),
+                size: 22,
+              ),
             ),
           ),
 
@@ -873,7 +896,9 @@ class TelaJogo2 extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const GameFallingScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const GameFallingScreen(),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -882,7 +907,10 @@ class TelaJogo2 extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
+                  ),
                   textStyle: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -891,7 +919,9 @@ class TelaJogo2 extends StatelessWidget {
                 child: const Text(
                   'Iniciar Mini Game',
                   style: TextStyle(
-                    color: Color(0xFF333333), // Aqui você escolhe a cor desejada
+                    color: Color(
+                      0xFF333333,
+                    ), // Aqui você escolhe a cor desejada
                   ),
                 ),
               ),
@@ -915,7 +945,9 @@ class TelaJogo3 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/JogoColetarLixo/imagemParque_2.png'),
+                image: AssetImage(
+                  'assets/images/JogoColetarLixo/imagemParque_2.png',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -933,7 +965,11 @@ class TelaJogo3 extends StatelessWidget {
                   side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
                 ),
               ),
-              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+              child: const Icon(
+                Icons.close,
+                color: Color(0xFF333333),
+                size: 22,
+              ),
             ),
           ),
 
@@ -946,7 +982,9 @@ class TelaJogo3 extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GameCollectGarbageScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => GameCollectGarbageScreen(),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -955,7 +993,10 @@ class TelaJogo3 extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
+                  ),
                   textStyle: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -964,7 +1005,9 @@ class TelaJogo3 extends StatelessWidget {
                 child: const Text(
                   'Iniciar Mini Game',
                   style: TextStyle(
-                    color: Color(0xFF333333), // Aqui você escolhe a cor desejada
+                    color: Color(
+                      0xFF333333,
+                    ), // Aqui você escolhe a cor desejada
                   ),
                 ),
               ),
@@ -975,7 +1018,6 @@ class TelaJogo3 extends StatelessWidget {
     );
   }
 }
-
 
 // Outras Telas
 class TelaComoJogar extends StatelessWidget {
@@ -988,9 +1030,7 @@ class TelaComoJogar extends StatelessWidget {
   }
 }
 
-
 class TelaCreditos extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1008,29 +1048,6 @@ class TelaCreditos extends StatelessWidget {
             ),
           ),
 
-          Positioned(
-            top: 50,
-            left: 15,
-            child: SizedBox(
-              width: 45,
-              height: 45,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Volta para a tela anterior
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFE4C7A3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
-                  ),
-                  padding: EdgeInsets.zero,
-                ),
-                child: const Icon(Icons.arrow_back, color: Color(0xFF333333), size: 22),
-              ),
-            ),
-          ),
-
           // Botão Fechar no topo direito
           Positioned(
             top: 50,
@@ -1040,28 +1057,9 @@ class TelaCreditos extends StatelessWidget {
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text("Sair do Jogo"),
-                        content: Text("Você deseja sair do jogo?"),
-                        actions: [
-                          TextButton(
-                            child: Text("Não"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          TextButton(
-                            child: Text("Sim"),
-                            onPressed: () {
-                              SystemNavigator.pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaInicial()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -1072,14 +1070,16 @@ class TelaCreditos extends StatelessWidget {
                   ),
                   padding: EdgeInsets.zero,
                 ),
-                child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
-
-
