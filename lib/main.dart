@@ -462,6 +462,62 @@ class TelaHistoria_8 extends StatelessWidget {
             onProximo: () {
               Navigator.push(
                 context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_9()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TelaHistoria_9 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistóriaTela_9.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_8()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_10()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TelaHistoria_10 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/HistoriaTela_10.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_9()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
               );
             },
