@@ -56,15 +56,6 @@ class TelaInicial extends StatelessWidget {
                       );
                     }),
                     SizedBox(height: 14),
-                    botaoCustomizado('Como Jogar', () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TelaComoJogar(),
-                        ),
-                      );
-                    }),
-                    SizedBox(height: 14),
                     botaoCustomizado('Créditos', () {
                       Navigator.push(
                         context,
@@ -820,7 +811,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
           // Botões de dificuldade com posição específica
           Positioned(
-            top: 750,
+            top: 670,
             left: 20,
             right: 20,
             child: Row(
@@ -835,7 +826,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
           // Botão Iniciar centralizado mais abaixo e mais largo
           Positioned(
-            bottom: 40,
+            bottom: 115,
             left: 40,
             right: 40,
             child: SizedBox(
@@ -867,6 +858,41 @@ class _TelaJogo1State extends State<TelaJogo1> {
                 ),
                 child: const Text(
                   'Iniciar Mini Game',
+                  style: TextStyle(color: Color(0xFF333333)),
+                ),
+              ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 40,
+            left: 40,
+            right: 40,
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TelaComoJogar_1(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: const Text(
+                  'Como Jogar',
                   style: TextStyle(color: Color(0xFF333333)),
                 ),
               ),
@@ -1076,12 +1102,56 @@ class TelaJogo3 extends StatelessWidget {
 }
 
 // Outras Telas
-class TelaComoJogar extends StatelessWidget {
+class TelaComoJogar_1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tela Como Jogar')),
-      body: Center(child: Text('Você está na tela COMO JOGAR!')),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/Créditos/Jogo 1 - Referência final (2).png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaJogo1()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
