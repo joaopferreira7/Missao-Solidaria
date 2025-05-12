@@ -1126,7 +1126,7 @@ class TelaJogo3 extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const GameFallingScreen(),
+                            builder: (context) => GameCollectGarbageScreen(),
                           ),
                         );
                       },
