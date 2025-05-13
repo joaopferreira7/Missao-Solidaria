@@ -987,7 +987,7 @@ class TelaJogo2 extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 40), // espaço inferior da coluna
+              padding: const EdgeInsets.only(bottom: 70), // espaço inferior da coluna
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -1115,7 +1115,7 @@ class TelaJogo3 extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 40), // espaço inferior da coluna
+              padding: const EdgeInsets.only(bottom: 70), // espaço inferior da coluna
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
