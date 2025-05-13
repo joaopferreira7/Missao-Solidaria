@@ -29,27 +29,20 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     // Fase 2
     [
       {"offset": Offset(10, 200), "allowed": ["Lata", "Papelão"]},
-      {"offset": Offset(240, 530), "allowed": ["Entulho", "Restos de Comida"]},
-      {"offset": Offset(30, 420), "allowed": ["Lata", "Garrafa"]},
-      {"offset": Offset(230, 320), "allowed": ["Garrafa", "Papelão"]},
+      {"offset": Offset(240, 510), "allowed": ["Entulho", "Restos de Comida"]},
+      {"offset": Offset(30, 420), "allowed": ["Papelão", "Garrafa"]},
+      {"offset": Offset(230, 320), "allowed": ["Garrafa", "Lata"]},
       {"offset": Offset(20, 300), "allowed": ["Lata", "Restos de Comida"]},
       {"offset": Offset(300, 240), "allowed": ["Garrafa", "Papelão"]},
-
-
     ],
     // Fase 3
     [
-      {"offset": Offset(10, 510), "allowed": ["Papelão", "Entulho"]},
-      {"offset": Offset(30, 590), "allowed": ["Garrafa", "Lata"]},
-      {"offset": Offset(170, 550), "allowed": ["Restos de Comida", "Papelão"]},
-      {"offset": Offset(210, 500), "allowed": ["Entulho", "Lata"]},
+      {"offset": Offset(10, 500), "allowed": ["Papelão", "Entulho"]},
+      {"offset": Offset(20, 560), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(230, 520), "allowed": ["Restos de Comida", "Papelão"]},
+      {"offset": Offset(210, 450), "allowed": ["Entulho", "Lata"]},
       {"offset": Offset(80, 320), "allowed": ["Garrafa", "Lata"]},
-
-
-
-
-
-
+      {"offset": Offset(300, 380), "allowed": ["Lata", "Garrafa"]},
     ],
   ];
 
@@ -93,7 +86,9 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     final List<Map<String, dynamic>> positionConfigs = allPhases[currentPhase];
     final List<Map<String, dynamic>> shuffledPositions = List.from(positionConfigs)..shuffle();
 
-    for (var config in shuffledPositions.take(5)) {
+    int itemsToGenerate = 5 + currentPhase;
+
+    for (var config in shuffledPositions.take(itemsToGenerate)) {
       final allowed = config["allowed"];
       final possible = trashItems.where((item) => allowed.contains(item["name"])).toList();
       final selected = possible[random.nextInt(possible.length)];
