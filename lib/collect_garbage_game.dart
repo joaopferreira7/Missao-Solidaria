@@ -21,31 +21,35 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     // Fase 1
     [
       {"offset": Offset(60, 100), "allowed": ["Lata", "Garrafa", "Papelão"]},
-      {"offset": Offset(20, 530), "allowed": ["Entulho", "Restos de Comida", "Papelão"]},
+      {"offset": Offset(20, 510), "allowed": ["Entulho", "Restos de Comida", "Papelão"]},
       {"offset": Offset(250, 560), "allowed": ["Garrafa", "Lata"]},
       {"offset": Offset(150, 500), "allowed": ["Restos de Comida", "Entulho", "Papelão", "Lata", "Garrafa"]},
-      {"offset": Offset(0, 600), "allowed": ["Lata", "Garrafa"]},
+      {"offset": Offset(10, 610), "allowed": ["Lata", "Garrafa", "Entulho"]},
     ],
     // Fase 2
     [
       {"offset": Offset(10, 200), "allowed": ["Lata", "Papelão"]},
-      {"offset": Offset(240, 530), "allowed": ["Entulho", "Garrafa"]},
-      {"offset": Offset(30, 420), "allowed": ["Restos de Comida", "Entulho"]},
+      {"offset": Offset(240, 530), "allowed": ["Entulho", "Restos de Comida"]},
+      {"offset": Offset(30, 420), "allowed": ["Lata", "Garrafa"]},
       {"offset": Offset(230, 320), "allowed": ["Garrafa", "Papelão"]},
       {"offset": Offset(20, 300), "allowed": ["Lata", "Restos de Comida"]},
-      {"offset": Offset(300, 240), "allowed": ["Garrafa", "Entulho"]},
+      {"offset": Offset(300, 240), "allowed": ["Garrafa", "Papelão"]},
 
 
     ],
     // Fase 3
     [
-      {"offset": Offset(100, 150), "allowed": ["Papelão", "Entulho"]},
-      {"offset": Offset(30, 550), "allowed": ["Garrafa", "Lata"]},
-      {"offset": Offset(270, 450), "allowed": ["Restos de Comida", "Papelão"]},
-      {"offset": Offset(120, 500), "allowed": ["Entulho", "Lata"]},
-      {"offset": Offset(180, 320), "allowed": ["Garrafa", "Lata"]},
-      {"offset": Offset(50, 400), "allowed": ["Restos de Comida", "Papelão"]},
-      {"offset": Offset(250, 300), "allowed": ["Lata", "Papelão", "Garrafa"]},
+      {"offset": Offset(10, 510), "allowed": ["Papelão", "Entulho"]},
+      {"offset": Offset(30, 590), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(170, 550), "allowed": ["Restos de Comida", "Papelão"]},
+      {"offset": Offset(210, 500), "allowed": ["Entulho", "Lata"]},
+      {"offset": Offset(80, 320), "allowed": ["Garrafa", "Lata"]},
+
+
+
+
+
+
     ],
   ];
 
