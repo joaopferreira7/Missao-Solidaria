@@ -218,11 +218,17 @@ class TopBarBotoes extends StatelessWidget {
           padding: EdgeInsets.zero,
         ),
         child: Center(
-          child: Text(
+          child: isBotaoX
+              ? Icon(
+            Icons.close,
+            size: 22,
+            color: Color(0xFF333333),
+          )
+              : Text(
             texto,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: isBotaoX ? 22 : 20,
+              fontSize: 20,
               color: Color(0xFF333333),
             ),
           ),
@@ -791,27 +797,31 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
           // Botão Fechar
           Positioned(
-            top: 35,
-            right: -10,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TelaEscolherJogo(),
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFE4C7A3),
-                shape: const CircleBorder(
-                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                  padding: EdgeInsets.zero,
                 ),
-              ),
-              child: const Icon(
-                Icons.close,
-                color: Color(0xFF333333),
-                size: 22,
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
+                ),
               ),
             ),
           ),
