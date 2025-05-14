@@ -685,7 +685,7 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 40),
               child: SizedBox(
-                width: 160,
+                width: 180,
                 height: 60,
                 child: ElevatedButton(
                   onPressed: confirmarSelecao,
@@ -825,7 +825,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
           // Botões de dificuldade com posição específica
           Positioned(
-            top: 670,
+            top: 610,
             left: 20,
             right: 20,
             child: Row(
@@ -866,7 +866,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   textStyle: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -901,7 +901,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   textStyle: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -930,13 +930,13 @@ class _TelaJogo1State extends State<TelaJogo1> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
-            side: const BorderSide(color: Color(0xFF4F2E0D), width: 3),
+            side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
           ),
         ),
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 24, color: Color(0xFF333333)),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF333333)),
         ),
       ),
     );
