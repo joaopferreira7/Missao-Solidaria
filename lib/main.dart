@@ -111,7 +111,7 @@ class TelaInicial extends StatelessWidget {
                 child: const Icon(
                   Icons.close,
                   color: Color(0xFF333333),
-                  size: 22,
+                  size: 24,
                 ),
               ),
             ),
@@ -649,13 +649,10 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                     ),
                     padding: EdgeInsets.zero,
                   ),
-                  child: Text(
-                    'X',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color(0xFF333333),
-                    ),
+                  child: Icon(
+                    Icons.close,
+                    size: 24,
+                    color: Color(0xFF333333),
                   ),
                 ),
               ),
