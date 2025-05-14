@@ -240,7 +240,7 @@ class TelaJogar extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_1.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_1.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -269,7 +269,7 @@ class TelaHistoria_2 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_2.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_2.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -298,7 +298,7 @@ class TelaHistoria_3 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_3.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_3.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -327,7 +327,7 @@ class TelaHistoria_4 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_4.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_4.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -356,7 +356,7 @@ class TelaHistoria_5 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_5.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_5.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -385,7 +385,7 @@ class TelaHistoria_6 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_6.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_6.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -414,7 +414,7 @@ class TelaHistoria_7 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_7.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_7.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -442,7 +442,7 @@ class TelaHistoria_8 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_8.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_8.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -470,7 +470,7 @@ class TelaHistoria_9 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistóriaTela_9.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_9.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -498,7 +498,7 @@ class TelaHistoria_10 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_10.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/HistoriaTela_10.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -665,11 +665,11 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildBotaoJogar('assets/images/Jogo1.png', 1),
+                      _buildBotaoJogar('assets/images/SimboloJogo/Jogo1.png', 1),
                       SizedBox(width: 7.5),
-                      _buildBotaoJogar('assets/images/Jogo2.png', 2),
+                      _buildBotaoJogar('assets/images/SimboloJogo/Jogo2.png', 2),
                       SizedBox(width: 7.5),
-                      _buildBotaoJogar('assets/images/Jogo3.png', 3),
+                      _buildBotaoJogar('assets/images/SimboloJogo/Jogo3.png', 3),
                     ],
                   ),
                   SizedBox(height: 10),
@@ -1204,7 +1204,7 @@ class TelaComoJogar_1 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/Créditos/Jogo 1 - Como_Jogar.png'),
+                image: AssetImage('assets/images/ComoJogar/Jogo 1 - Como_Jogar.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -1258,7 +1258,7 @@ class TelaComoJogar_2 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/Créditos/Jogo 2 - Como_Jogar.png'),
+                image: AssetImage('assets/images/ComoJogar/Jogo 2 - Como_Jogar.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -1312,7 +1312,7 @@ class TelaComoJogar_3 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/Créditos/Jogo 3 - Como_Jogar.png'),
+                image: AssetImage('assets/images/ComoJogar/Jogo 3 - Como_Jogar.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -1366,7 +1366,7 @@ class TelaCreditos extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/Tela_créditos.png'),
+                image: AssetImage('assets/images/Créditos/Tela - Créditos.png'),
                 fit: BoxFit.cover,
               ),
             ),
