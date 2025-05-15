@@ -24,7 +24,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
       {"offset": Offset(20, 510), "allowed": ["Entulho", "Restos de Comida", "Papelão"]},
       {"offset": Offset(250, 560), "allowed": ["Garrafa", "Lata"]},
       {"offset": Offset(150, 500), "allowed": ["Restos de Comida", "Entulho", "Papelão", "Lata", "Garrafa"]},
-      {"offset": Offset(10, 610), "allowed": ["Lata", "Garrafa", "Entulho"]},
+      {"offset": Offset(10, 600), "allowed": ["Lata", "Garrafa", "Entulho"]},
     ],
     // Fase 2
     [
@@ -38,7 +38,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     // Fase 3
     [
       {"offset": Offset(10, 500), "allowed": ["Papelão", "Entulho"]},
-      {"offset": Offset(20, 560), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(20, 600), "allowed": ["Garrafa", "Lata"]},
       {"offset": Offset(230, 520), "allowed": ["Restos de Comida", "Papelão"]},
       {"offset": Offset(210, 450), "allowed": ["Entulho", "Lata"]},
       {"offset": Offset(80, 320), "allowed": ["Garrafa", "Lata"]},
@@ -281,13 +281,13 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
 
           Positioned(
             bottom: 0,
-            right: 30,
+            right: 60,
             child: DragTarget<String>(
               builder: (context, candidateData, rejectedData) {
                 return Image.asset(
                   'assets/images/JogoColetarLixo/cestoDeLixo.png',
-                  width: 340,
-                  height: 340,
+                  width: 280,
+                  height: 280,
                 );
               },
               onAccept: (data) {
