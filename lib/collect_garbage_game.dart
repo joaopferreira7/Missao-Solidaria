@@ -21,10 +21,10 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     // Fase 1
     [
       {"offset": Offset(60, 100), "allowed": ["Lata", "Garrafa", "Papelão"]},
-      {"offset": Offset(20, 510), "allowed": ["Entulho", "Restos de Comida", "Papelão"]},
-      {"offset": Offset(250, 560), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(20, 450), "allowed": ["Entulho", "Restos de Comida", "Papelão"]},
+      {"offset": Offset(270, 520), "allowed": ["Garrafa", "Lata"]},
       {"offset": Offset(150, 500), "allowed": ["Restos de Comida", "Entulho", "Papelão", "Lata", "Garrafa"]},
-      {"offset": Offset(10, 600), "allowed": ["Lata", "Garrafa", "Entulho"]},
+      {"offset": Offset(10, 550), "allowed": ["Lata", "Garrafa", "Entulho"]},
     ],
     // Fase 2
     [
@@ -32,17 +32,17 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
       {"offset": Offset(240, 510), "allowed": ["Entulho", "Restos de Comida"]},
       {"offset": Offset(30, 420), "allowed": ["Papelão", "Garrafa"]},
       {"offset": Offset(230, 320), "allowed": ["Garrafa", "Lata"]},
-      {"offset": Offset(20, 300), "allowed": ["Lata", "Restos de Comida"]},
+      {"offset": Offset(20, 300), "allowed": ["Papelão", "Lata"]},
       {"offset": Offset(300, 240), "allowed": ["Garrafa", "Papelão"]},
     ],
     // Fase 3
     [
-      {"offset": Offset(10, 500), "allowed": ["Papelão", "Entulho"]},
-      {"offset": Offset(20, 600), "allowed": ["Garrafa", "Lata"]},
-      {"offset": Offset(230, 520), "allowed": ["Restos de Comida", "Papelão"]},
-      {"offset": Offset(210, 450), "allowed": ["Entulho", "Lata"]},
+      {"offset": Offset(10, 480), "allowed": ["Papelão", "Entulho"]},
+      {"offset": Offset(20, 570), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(230, 500), "allowed": ["Restos de Comida", "Papelão"]},
+      {"offset": Offset(220, 430), "allowed": ["Entulho", "Lata"]},
       {"offset": Offset(80, 320), "allowed": ["Garrafa", "Lata"]},
-      {"offset": Offset(300, 380), "allowed": ["Lata", "Garrafa"]},
+      {"offset": Offset(300, 340), "allowed": ["Lata", "Garrafa"]},
     ],
   ];
 
@@ -312,7 +312,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                   Text(
                     'Encontre: ${activeTrash[currentIndex]['name']}',
                     style: TextStyle(
-                      fontSize: 26,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: [Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 1))],
@@ -322,7 +322,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                   Text(
                     'Tempo: $timeLeft s',
                     style: TextStyle(
-                      fontSize: 26,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: [Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 1))],

@@ -26,14 +26,16 @@ class TelaInicial extends StatelessWidget {
           Image.asset('assets/images/TelaInicial.png', fit: BoxFit.cover),
           Column(
             children: [
-              SizedBox(height: 100),
+              SizedBox(height: 120),
               Center(
                 child: Text(
-                  'Missão Solidária',
-                  style: TextStyle(
-                    fontSize: 50,
+                  'Missão\nSolidária',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 60,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    height: 1.2,
                     shadows: [
                       Shadow(
                         blurRadius: 8.0,
