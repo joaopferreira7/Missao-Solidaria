@@ -246,7 +246,7 @@ class TelaJogar extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_1.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 1.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -275,7 +275,7 @@ class TelaHistoria_2 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_2.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 2.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -304,7 +304,7 @@ class TelaHistoria_3 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_3.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 3.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -333,7 +333,7 @@ class TelaHistoria_4 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_4.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 4.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -362,7 +362,7 @@ class TelaHistoria_5 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_5.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 5.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -391,7 +391,7 @@ class TelaHistoria_6 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_6.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 6.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -420,7 +420,7 @@ class TelaHistoria_7 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_7.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 7.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -448,7 +448,7 @@ class TelaHistoria_8 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_8.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 8.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -476,7 +476,7 @@ class TelaHistoria_9 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_9.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 9.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -504,7 +504,7 @@ class TelaHistoria_10 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/História/HistoriaTela_10.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 10.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
