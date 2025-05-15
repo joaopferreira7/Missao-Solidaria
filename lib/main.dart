@@ -570,7 +570,7 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/TelaEscolherJogo.png', fit: BoxFit.cover),
+          Image.asset('assets/images/Tela Escolher Jogo.png', fit: BoxFit.cover),
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
