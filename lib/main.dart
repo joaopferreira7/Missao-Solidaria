@@ -785,7 +785,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'assets/images/jogoComidas/fundo_jogoComida.png',
+                  'assets/images/jogoComidas/Jogo 1.png',
                 ),
                 fit: BoxFit.cover,
               ),
