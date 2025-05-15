@@ -390,19 +390,6 @@ class _GameScreenState extends State<GameFallingScreen> with TickerProviderState
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              Future.delayed(const Duration(milliseconds: 100), () {
-                setState(() {
-                  badPassed = 0;
-                  objects.clear();
-                  _startPhase();
-                });
-              });
-            },
-            child: const Text('Reiniciar'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => TelaEscolherJogo()),

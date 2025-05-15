@@ -26,14 +26,16 @@ class TelaInicial extends StatelessWidget {
           Image.asset('assets/images/TelaInicial.png', fit: BoxFit.cover),
           Column(
             children: [
-              SizedBox(height: 100),
+              SizedBox(height: 120),
               Center(
                 child: Text(
-                  'Missão Solidária',
-                  style: TextStyle(
-                    fontSize: 50,
+                  'Missão\nSolidária',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 60,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    height: 1.2,
                     shadows: [
                       Shadow(
                         blurRadius: 8.0,
@@ -53,15 +55,6 @@ class TelaInicial extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => TelaJogar()),
-                      );
-                    }),
-                    SizedBox(height: 14),
-                    botaoCustomizado('Como Jogar', () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TelaComoJogar(),
-                        ),
                       );
                     }),
                     SizedBox(height: 14),
@@ -117,15 +110,10 @@ class TelaInicial extends StatelessWidget {
                   ),
                   padding: EdgeInsets.zero,
                 ),
-                child: Center(
-                  child: Text(
-                    'X',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                      color: Color(0xFF333333),
-                    ),
-                  ),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 24,
                 ),
               ),
             ),
@@ -232,11 +220,17 @@ class TopBarBotoes extends StatelessWidget {
           padding: EdgeInsets.zero,
         ),
         child: Center(
-          child: Text(
+          child: isBotaoX
+              ? Icon(
+            Icons.close,
+            size: 22,
+            color: Color(0xFF333333),
+          )
+              : Text(
             texto,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: isBotaoX ? 22 : 20,
+              fontSize: 20,
               color: Color(0xFF333333),
             ),
           ),
@@ -254,7 +248,7 @@ class TelaJogar extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_1.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 1.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -283,7 +277,7 @@ class TelaHistoria_2 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_2.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 2.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -312,7 +306,7 @@ class TelaHistoria_3 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_3.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 3.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -341,7 +335,7 @@ class TelaHistoria_4 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_4.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 4.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -370,7 +364,7 @@ class TelaHistoria_5 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_5.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 5.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -399,7 +393,7 @@ class TelaHistoria_6 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_6.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 6.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -428,7 +422,7 @@ class TelaHistoria_7 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_7.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 7.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
@@ -456,12 +450,68 @@ class TelaHistoria_8 extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/HistoriaTela_8.png', fit: BoxFit.cover),
+          Image.asset('assets/images/História/Tela História - 8.png', fit: BoxFit.cover),
           TopBarBotoes(
             onVoltar: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => TelaHistoria_7()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_9()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TelaHistoria_9 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/História/Tela História - 9.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_8()),
+              );
+            },
+            onProximo: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_10()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TelaHistoria_10 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/História/Tela História - 10.png', fit: BoxFit.cover),
+          TopBarBotoes(
+            onVoltar: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TelaHistoria_9()),
               );
             },
             onProximo: () {
@@ -522,7 +572,7 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/TelaEscolherJogo.png', fit: BoxFit.cover),
+          Image.asset('assets/images/Tela Escolher Jogo.png', fit: BoxFit.cover),
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
@@ -532,7 +582,10 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TelaHistoria_8()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFE4C7A3),
@@ -598,13 +651,10 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                     ),
                     padding: EdgeInsets.zero,
                   ),
-                  child: Text(
-                    'X',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color(0xFF333333),
-                    ),
+                  child: Icon(
+                    Icons.close,
+                    size: 24,
+                    color: Color(0xFF333333),
                   ),
                 ),
               ),
@@ -620,11 +670,11 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildBotaoJogar('assets/images/Jogo1.png', 1),
+                      _buildBotaoJogar('assets/images/SimboloJogo/Jogo1.png', 1),
                       SizedBox(width: 7.5),
-                      _buildBotaoJogar('assets/images/Jogo2.png', 2),
+                      _buildBotaoJogar('assets/images/SimboloJogo/Jogo2.png', 2),
                       SizedBox(width: 7.5),
-                      _buildBotaoJogar('assets/images/Jogo3.png', 3),
+                      _buildBotaoJogar('assets/images/SimboloJogo/Jogo3.png', 3),
                     ],
                   ),
                   SizedBox(height: 10),
@@ -637,7 +687,7 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 40),
               child: SizedBox(
-                width: 160,
+                width: 180,
                 height: 60,
                 child: ElevatedButton(
                   onPressed: confirmarSelecao,
@@ -672,9 +722,10 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
       child: ElevatedButton(
         onPressed: () => selecionarJogo(numeroDoJogo),
         style: ElevatedButton.styleFrom(
-          backgroundColor: jogoSelecionado == numeroDoJogo
-              ? Colors.green[300]
-              : Color(0xFFE4C7A3),
+          backgroundColor:
+              jogoSelecionado == numeroDoJogo
+                  ? Colors.green[300]
+                  : Color(0xFFE4C7A3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
@@ -735,7 +786,9 @@ class _TelaJogo1State extends State<TelaJogo1> {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoComidas/fundo_jogoComida.png'),
+                image: AssetImage(
+                  'assets/images/jogoComidas/Jogo 1.png',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -743,23 +796,38 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
           // Botão Fechar
           Positioned(
-            top: 35,
-            right: -10,
-            child: ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFE4C7A3),
-                shape: const CircleBorder(
-                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
                 ),
               ),
-              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
             ),
           ),
 
           // Botões de dificuldade com posição específica
           Positioned(
-            top: 750,
+            top: 610,
             left: 20,
             right: 20,
             child: Row(
@@ -774,7 +842,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
           // Botão Iniciar centralizado mais abaixo e mais largo
           Positioned(
-            bottom: 40,
+            bottom: 115,
             left: 40,
             right: 40,
             child: SizedBox(
@@ -784,10 +852,11 @@ class _TelaJogo1State extends State<TelaJogo1> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GameSelectFoodScreen(
-                        tempoInicial: _tempoInicial,
-                        quantidadeItens: _quantidadeItens,
-                      ),
+                      builder:
+                          (context) => GameSelectFoodScreen(
+                            tempoInicial: _tempoInicial,
+                            quantidadeItens: _quantidadeItens,
+                          ),
                     ),
                   );
                 },
@@ -798,10 +867,48 @@ class _TelaJogo1State extends State<TelaJogo1> {
                     side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  textStyle: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 child: const Text(
                   'Iniciar Mini Game',
+                  style: TextStyle(color: Color(0xFF333333)),
+                ),
+              ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 40,
+            left: 40,
+            right: 40,
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TelaComoJogar_1(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  textStyle: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: const Text(
+                  'Como Jogar',
                   style: TextStyle(color: Color(0xFF333333)),
                 ),
               ),
@@ -811,6 +918,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
       ),
     );
   }
+
   // Botão reutilizável
   Widget _botaoDificuldade(String label) {
     final bool selecionado = _dificuldadeSelecionada == label;
@@ -819,17 +927,18 @@ class _TelaJogo1State extends State<TelaJogo1> {
       child: ElevatedButton(
         onPressed: () => _selecionarDificuldade(label),
         style: ElevatedButton.styleFrom(
-          backgroundColor: selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
+          backgroundColor:
+              selecionado ? const Color(0xFFBFA97A) : const Color(0xFFE4C7A3),
           padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
-            side: const BorderSide(color: Color(0xFF4F2E0D), width: 3),
+            side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
           ),
         ),
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 24, color: Color(0xFF333333)),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF333333)),
         ),
       ),
     );
@@ -848,7 +957,9 @@ class TelaJogo2 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoRoupas/fundo_jogoRoupas.jpeg'),
+                image: AssetImage(
+                  'assets/images/jogoRoupas/fundo_jogoRoupas.jpeg',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -859,14 +970,25 @@ class TelaJogo2 extends StatelessWidget {
             top: 40,
             right: -5,
             child: ElevatedButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TelaEscolherJogo(),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFE4C7A3),
                 shape: const CircleBorder(
                   side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
                 ),
               ),
-              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+              child: const Icon(
+                Icons.close,
+                color: Color(0xFF333333),
+                size: 22,
+              ),
             ),
           ),
 
@@ -874,35 +996,77 @@ class TelaJogo2 extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 100),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const GameFallingScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE4C7A3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+              padding: const EdgeInsets.only(bottom: 70), // espaço inferior da coluna
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 280, // mesmo tamanho para ambos
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const GameFallingScreen(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE4C7A3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 16,
+                        ),
+                        textStyle: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: const Text(
+                        'Iniciar Mini Game',
+                        style: TextStyle(color: Color(0xFF333333)),
+                      ),
+                    ),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  textStyle: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(height: 20), // espaçamento entre os botões
+                  SizedBox(
+                    width: 280,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TelaComoJogar_2(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE4C7A3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        textStyle: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: const Text(
+                        'Como Jogar',
+                        style: TextStyle(color: Color(0xFF333333)),
+                      ),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  'Iniciar Mini Game',
-                  style: TextStyle(
-                    color: Color(0xFF333333), // Aqui você escolhe a cor desejada
-                  ),
-                ),
+                ],
               ),
             ),
           ),
+
         ],
       ),
     );
@@ -921,7 +1085,9 @@ class TelaJogo3 extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/JogoColetarLixo/imagemParque_2.png'),
+                image: AssetImage(
+                  'assets/images/JogoColetarLixo/imagemParque_2.png',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -929,17 +1095,28 @@ class TelaJogo3 extends StatelessWidget {
 
           // Botão Fechar no topo direito
           Positioned(
-            top: 40,
-            right: -5,
+            top: 55,
+            right: -10,
             child: ElevatedButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TelaEscolherJogo(),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFE4C7A3),
                 shape: const CircleBorder(
                   side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
                 ),
               ),
-              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+              child: const Icon(
+                Icons.close,
+                color: Color(0xFF333333),
+                size: 22,
+              ),
             ),
           ),
 
@@ -947,31 +1124,127 @@ class TelaJogo3 extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 100),
+              padding: const EdgeInsets.only(bottom: 70), // espaço inferior da coluna
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 280, // mesmo tamanho para ambos
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GameCollectGarbageScreen(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE4C7A3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 16,
+                        ),
+                        textStyle: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: const Text(
+                        'Iniciar Mini Game',
+                        style: TextStyle(color: Color(0xFF333333)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20), // espaçamento entre os botões
+                  SizedBox(
+                    width: 280,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TelaComoJogar_3(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE4C7A3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        textStyle: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: const Text(
+                        'Como Jogar',
+                        style: TextStyle(color: Color(0xFF333333)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Outras Telas
+class TelaComoJogar_1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/ComoJogar/Jogo 1 - Como_Jogar.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GameCollectGarbageScreen()),
+                    MaterialPageRoute(builder: (context) => TelaJogo1()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE4C7A3),
+                  backgroundColor: Color(0xFFE4C7A3),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: const BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  textStyle: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  padding: EdgeInsets.zero,
                 ),
-                child: const Text(
-                  'Iniciar Mini Game',
-                  style: TextStyle(
-                    color: Color(0xFF333333), // Aqui você escolhe a cor desejada
-                  ),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
                 ),
               ),
             ),
@@ -982,27 +1255,164 @@ class TelaJogo3 extends StatelessWidget {
   }
 }
 
-
-// Outras Telas
-class TelaComoJogar extends StatelessWidget {
+class TelaComoJogar_2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tela Como Jogar')),
-      body: Center(child: Text('Você está na tela COMO JOGAR!')),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/ComoJogar/Jogo 2 - Como_Jogar.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaJogo2()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
+class TelaComoJogar_3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/ComoJogar/Jogo 3 - Como_Jogar.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaJogo3()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class TelaCreditos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tela de Créditos')),
-      body: Center(child: Text('Você está na tela de CRÉDITOS!')),
+      body: Stack(
+        children: [
+          // Fundo
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/Créditos/Tela - Créditos.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Botão Fechar no topo direito
+          Positioned(
+            top: 50,
+            right: 15,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaInicial()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFE4C7A3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    side: BorderSide(color: Color(0xFF4F2E0D), width: 4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(
+                  Icons.close,
+                  color: Color(0xFF333333),
+                  size: 22,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-

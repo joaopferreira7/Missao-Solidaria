@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class GameCollectGarbageScreen extends StatefulWidget {
   @override
@@ -16,15 +17,42 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     {"name": "Entulho", "image": "assets/images/JogoColetarLixo/lixos/entulho.png"},
   ];
 
-  final List<Map<String, dynamic>> positionConfigs = [
-    {"offset": Offset(60, 100), "allowed": ["Lata", "Garrafa", "Papelão"]},
-    {"offset": Offset(20, 530), "allowed": ["Entulho", "Restos de Comida", "Papelão"]},
-    {"offset": Offset(280, 560), "allowed": ["Garrafa", "Lata"]},
-    {"offset": Offset(150, 500), "allowed": ["Restos de Comida", "Entulho", "Papelão", "Lata", "Garrafa"]},
-    {"offset": Offset(300, 620), "allowed": ["Lata", "Garrafa"]},
-    {"offset": Offset(250, 250), "allowed": ["Lata", "Garrafa", "Papelão"]}
+  final List<List<Map<String, dynamic>>> allPhases = [
+    // Fase 1
+    [
+      {"offset": Offset(60, 100), "allowed": ["Lata", "Garrafa", "Papelão"]},
+      {"offset": Offset(20, 450), "allowed": ["Entulho", "Restos de Comida", "Papelão"]},
+      {"offset": Offset(270, 520), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(150, 500), "allowed": ["Restos de Comida", "Entulho", "Papelão", "Lata", "Garrafa"]},
+      {"offset": Offset(10, 550), "allowed": ["Lata", "Garrafa", "Entulho"]},
+    ],
+    // Fase 2
+    [
+      {"offset": Offset(10, 200), "allowed": ["Lata", "Papelão"]},
+      {"offset": Offset(240, 510), "allowed": ["Entulho", "Restos de Comida"]},
+      {"offset": Offset(30, 420), "allowed": ["Papelão", "Garrafa"]},
+      {"offset": Offset(230, 320), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(20, 300), "allowed": ["Papelão", "Lata"]},
+      {"offset": Offset(300, 240), "allowed": ["Garrafa", "Papelão"]},
+    ],
+    // Fase 3
+    [
+      {"offset": Offset(10, 480), "allowed": ["Papelão", "Entulho"]},
+      {"offset": Offset(20, 570), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(230, 500), "allowed": ["Restos de Comida", "Papelão"]},
+      {"offset": Offset(220, 430), "allowed": ["Entulho", "Lata"]},
+      {"offset": Offset(80, 320), "allowed": ["Garrafa", "Lata"]},
+      {"offset": Offset(300, 340), "allowed": ["Lata", "Garrafa"]},
+    ],
   ];
 
+  final List<String> backgroundImages = [
+    'assets/images/JogoColetarLixo/imagemParque_2.png',
+    'assets/images/JogoColetarLixo/imagemParque_1.png',
+    'assets/images/JogoColetarLixo/imagemParque_3.png',
+  ];
+
+  int currentPhase = 0;
   List<Map<String, dynamic>> activeTrash = [];
   int currentIndex = 0;
   int timeLeft = 5;
@@ -42,12 +70,25 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
     _startTimer();
   }
 
+  void _restartGame() {
+    setState(() {
+      currentPhase = 0;
+      currentIndex = 0;
+      timeLeft = 5;
+      _gameOver = false;
+      _setupGame();
+    });
+  }
+
   void _generateTrashItems() {
     activeTrash.clear();
     final random = Random();
+    final List<Map<String, dynamic>> positionConfigs = allPhases[currentPhase];
     final List<Map<String, dynamic>> shuffledPositions = List.from(positionConfigs)..shuffle();
 
-    for (var config in shuffledPositions.take(5)) {
+    int itemsToGenerate = 5 + currentPhase;
+
+    for (var config in shuffledPositions.take(itemsToGenerate)) {
       final allowed = config["allowed"];
       final possible = trashItems.where((item) => allowed.contains(item["name"])).toList();
       final selected = possible[random.nextInt(possible.length)];
@@ -68,21 +109,9 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
           timeLeft--;
         });
       } else {
-        _nextTrashOrEnd();
+        _endGame(false);
       }
     });
-  }
-
-  void _nextTrashOrEnd() {
-    if (_gameOver) return;
-    if (currentIndex < activeTrash.length - 1) {
-      setState(() {
-        currentIndex++;
-        timeLeft = 5;
-      });
-    } else {
-      _endGame(true);
-    }
   }
 
   void _endGame(bool success) {
@@ -104,19 +133,83 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
               Navigator.of(context).pop();
               _restartGame();
             },
-          )
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+              );
+            },
+            child: const Text('Sair'),
+          ),
         ],
       ),
     );
   }
 
-  void _restartGame() {
+  void _pauseGame() {
+    _timer?.cancel();
+  }
+
+  void _resumeGame() {
+    _startTimer();
+  }
+
+  void _advanceToNextPhase() {
     setState(() {
+      currentPhase++;
       currentIndex = 0;
       timeLeft = 5;
       _gameOver = false;
-      _setupGame();
+      _generateTrashItems();
+      _startTimer();
     });
+  }
+
+  void _nextTrashOrEnd() {
+    if (_gameOver) return;
+
+    if (currentIndex < activeTrash.length - 1) {
+      setState(() {
+        currentIndex++;
+        timeLeft = 5;
+      });
+    } else {
+      if (currentPhase < allPhases.length - 1) {
+        _timer?.cancel();
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => AlertDialog(
+            title: Text('Fase Completa!'),
+            content: Text('Você limpou o parque com sucesso!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _advanceToNextPhase();
+                },
+                child: Text('Próxima Fase'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+                  );
+                },
+                child: const Text('Sair'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        _endGame(true);
+      }
+    }
   }
 
   @override
@@ -134,51 +227,74 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/JogoColetarLixo/imagemParque_2.png',
+              backgroundImages[currentPhase],
               fit: BoxFit.cover,
             ),
           ),
 
-          // Mostrar apenas os lixos atuais e seguintes, se o jogo ainda estiver em andamento
           for (int i = 0; i < activeTrash.length; i++)
             if (i >= currentIndex && !_gameOver)
               Positioned(
                 left: activeTrash[i]['position'].dx,
                 top: activeTrash[i]['position'].dy,
-                child: Draggable<String>(
-                  data: activeTrash[i]['name'],
-                  feedback: Image.asset(activeTrash[i]['image'], width: 160, height: 160),
-                  childWhenDragging: Opacity(
-                    opacity: 0.5,
-                    child: Image.asset(activeTrash[i]['image'], width: 160, height: 160),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTapDown: (_) {
+                    debugPrint('Item tocado: ${activeTrash[i]['name']}');
+                  },
+                  child: Container(
+                    // Ajuste esses valores para mudar a hitbox
+                    width: 130,  // Largura da hitbox
+                    height: 130, // Altura da hitbox
+                    color: Colors.transparent, // Mantém transparente
+                    child: Center(
+                      child: SizedBox(
+                        width: 130,  // Largura visual do item
+                        height: 130, // Altura visual do item
+                        child: Draggable<String>(
+                          data: activeTrash[i]['name'],
+                          feedback: Image.asset(
+                            activeTrash[i]['image'],
+                            width: 130,
+                            height: 130,
+                          ),
+                          childWhenDragging: Opacity(
+                            opacity: 0.5,
+                            child: Image.asset(
+                              activeTrash[i]['image'],
+                              width: 130,
+                              height: 130,
+                            ),
+                          ),
+                          child: Image.asset(
+                            activeTrash[i]['image'],
+                            width: 130,
+                            height: 130,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  child: Image.asset(activeTrash[i]['image'], width: 160, height: 160),
                 ),
               ),
 
-          // Área da cesta de lixo
+
           Positioned(
             bottom: 0,
-            right: 30,
+            right: 60,
             child: DragTarget<String>(
               builder: (context, candidateData, rejectedData) {
                 return Image.asset(
                   'assets/images/JogoColetarLixo/cestoDeLixo.png',
-                  width: 340,
-                  height: 340,
+                  width: 280,
+                  height: 280,
                 );
               },
               onAccept: (data) {
                 if (_gameOver || currentIndex >= activeTrash.length) return;
 
                 if (data == activeTrash[currentIndex]['name']) {
-                  setState(() {
-                    currentIndex++;
-                    timeLeft = 5;
-                  });
-                  if (currentIndex >= activeTrash.length) {
-                    _endGame(true);
-                  }
+                  _nextTrashOrEnd();
                 } else {
                   _endGame(false);
                 }
@@ -186,7 +302,6 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
             ),
           ),
 
-          // Exibição de nome do lixo atual e tempo restante
           if (hasTrashToShow)
             Positioned(
               top: 60,
@@ -197,7 +312,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                   Text(
                     'Encontre: ${activeTrash[currentIndex]['name']}',
                     style: TextStyle(
-                      fontSize: 26,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: [Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 1))],
@@ -207,7 +322,7 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                   Text(
                     'Tempo: $timeLeft s',
                     style: TextStyle(
-                      fontSize: 26,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: [Shadow(blurRadius: 4, color: Colors.black, offset: Offset(2, 1))],
@@ -215,7 +330,53 @@ class _GameCollectGarbageState extends State<GameCollectGarbageScreen> {
                   ),
                 ],
               ),
-            )
+            ),
+
+          // Botão de sair
+          Positioned(
+            top: 55,
+            right: -10,
+            child: ElevatedButton(
+              onPressed: () {
+                _pauseGame();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Sair do Jogo'),
+                      content: const Text('Você deseja voltar ao menu anterior?'),
+                      actions: [
+                        TextButton(
+                          child: const Text('Não'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            _resumeGame();
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Sim'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => TelaEscolherJogo()),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFE4C7A3),
+                shape: const CircleBorder(
+                  side: BorderSide(color: Color(0xFF4F2E0D), width: 3),
+                ),
+              ),
+              child: const Icon(Icons.close, color: Color(0xFF333333), size: 22),
+            ),
+          ),
         ],
       ),
     );

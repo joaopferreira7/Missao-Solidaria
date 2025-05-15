@@ -176,7 +176,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/jogoComidas/Jogo 1 - Referência final (11).png'),
+                image: AssetImage('assets/images/jogoComidas/Jogo 1.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -184,20 +184,38 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
           // Itens corretos
           Positioned(
-            top: 60,
+            top: 70,
             left: 0,
             right: 0,
             child: Column(
               children: [
                 Wrap(
-                  spacing: 10,
-                  children: itensCorretos
-                      .map((item) => Image.asset(_getImagePath(item), width: 90, height: 90))
-                      .toList(),
+                  spacing: 25,
+                  children: itensCorretos.map(
+                        (item) => Container(
+                      width: 55,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE4C7A3),
+                        shape: BoxShape.rectangle,
+                        border: Border.all(
+                          color: const Color(0xFF4F2E0D),
+                          width: 4,
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(0), // menos padding para imagem maior
+                      child: Image.asset(
+                        _getImagePath(item),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ).toList(),
                 ),
               ],
             ),
           ),
+
+
 
           // Cesta
           Align(
@@ -221,8 +239,8 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
               builder: (context, candidateData, rejectedData) {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 25),
-                  width: 360,
-                  height: 130,
+                  width: 350,
+                  height: 100,
                   decoration: BoxDecoration(
                     color: Colors.brown.withOpacity(0.7),
                     border: Border.all(color: Colors.white, width: 3),
@@ -260,7 +278,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
           // Itens visíveis (para selecionar)
           Positioned(
-            bottom: 145,
+            bottom: 125,
             left: 0,
             right: 0,
             child: Center(
@@ -295,18 +313,41 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
           // HUD - Tempo
           Positioned(
-            top: -20,
-            left: 0,
+            top: -2.5,
+            left: 10,
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Tempo: $tempoRestante',
-                  style: const TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
+                child: Stack(
+                  children: [
+                    // Contorno preto (borda)
+                    Text(
+                      'Tempo: $tempoRestante',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 4
+                          ..color = Colors.black,
+                      ),
+                    ),
+                    // Texto branco por cima
+                    Text(
+                      'Tempo: $tempoRestante',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
+
+
 
           // Botão de sair
           Positioned(
