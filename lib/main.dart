@@ -192,6 +192,15 @@ class TopBarBotoes extends StatelessWidget {
                           SystemNavigator.pop();
                         },
                       ),
+                      TextButton(
+                        child: Text('Tela Inicial'),
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TelaInicial()),
+                          );
+                        },
+                      ),
                     ],
                   );
                 },
@@ -641,7 +650,10 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                             TextButton(
                               child: Text('Tela Inicial'),
                               onPressed: (){
-                                MaterialPageRoute(builder: (context) => TelaInicial());
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => TelaInicial()),
+                                );
                               },
                             ),
                           ],
