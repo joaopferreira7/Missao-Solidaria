@@ -29,7 +29,7 @@ class TelaInicial extends StatelessWidget {
               SizedBox(height: 120),
               Center(
                 child: Text(
-                  'Missão\nSolidária',
+                  'Jornada do\nBem',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 60,
@@ -190,6 +190,15 @@ class TopBarBotoes extends StatelessWidget {
                         child: Text("Sim"),
                         onPressed: () {
                           SystemNavigator.pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text('Tela Inicial'),
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TelaInicial()),
+                          );
                         },
                       ),
                     ],
@@ -584,7 +593,7 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TelaHistoria_8()),
+                      MaterialPageRoute(builder: (context) => TelaHistoria_10()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -636,6 +645,15 @@ class _TelaEscolherJogoState extends State<TelaEscolherJogo> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 SystemNavigator.pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Tela Inicial'),
+                              onPressed: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => TelaInicial()),
+                                );
                               },
                             ),
                           ],
