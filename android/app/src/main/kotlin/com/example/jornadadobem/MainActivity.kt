@@ -1,4 +1,4 @@
-package com.example.grupo27_missao_solidaria
+package br.edu.unisagrado.jornadadobem
 
 import io.flutter.embedding.android.FlutterActivity
 
