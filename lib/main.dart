@@ -26,7 +26,7 @@ class TelaInicial extends StatelessWidget {
           Image.asset('assets/images/TelaInicial.png', fit: BoxFit.cover),
           Column(
             children: [
-              SizedBox(height: 120),
+              SizedBox(height: 120),keytool -help
               Center(
                 child: Text(
                   'Jornada do\nBem',
