@@ -184,7 +184,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
           // Itens corretos
           Positioned(
-            top: 70,
+            top: 77.3,
             left: 0,
             right: 0,
             child: Column(
@@ -313,7 +313,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
 
           // HUD - Tempo
           Positioned(
-            top: -2.5,
+            top: -17.5,
             left: 10,
             child: SafeArea(
               child: Padding(
@@ -324,7 +324,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     Text(
                       'Tempo: $tempoRestante',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
@@ -336,7 +336,7 @@ class _GameSelectFoodScreenState extends State<GameSelectFoodScreen> {
                     Text(
                       'Tempo: $tempoRestante',
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),

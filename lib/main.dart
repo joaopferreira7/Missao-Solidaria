@@ -845,7 +845,7 @@ class _TelaJogo1State extends State<TelaJogo1> {
 
           // Botões de dificuldade com posição específica
           Positioned(
-            top: 610,
+            top: 670,
             left: 20,
             right: 20,
             child: Row(
