@@ -33,6 +33,12 @@ O destaque vai para o **minijogo de roupas**, que apresenta **3 fases com dificu
 - Interface intuitiva e acessível
 - Progresso sequencial entre as fases
 
+## Imagens
+
+![Tela inicial do jogo](assets/images/TelaInicial.png)
+
+![Minijogo de roupas](assets/images/jogoRoupas/fundo_jogoRoupas.jpeg)
+
 ## 👤 Autor
 
 Desenvolvido por **Heitor Lupino**  
