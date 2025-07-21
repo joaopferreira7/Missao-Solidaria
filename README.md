@@ -1,6 +1,6 @@
-# 🎮 Missão Solidária
+# 🎮 Jornada do Bem
 
-**Missão Solidária** é um jogo educacional desenvolvido em Flutter, com o objetivo de promover valores como solidariedade, empatia e responsabilidade social por meio de experiências interativas e lúdicas. O projeto foi idealizado como parte das atividades acadêmicas do curso de Ciência da Computação da UNISAGRADO.
+**Jornada do Bem** é um jogo educacional desenvolvido em Flutter, com o objetivo de promover valores como solidariedade, empatia e responsabilidade social por meio de experiências interativas e lúdicas. O projeto foi idealizado como parte das atividades acadêmicas do curso de Ciência da Computação da UNISAGRADO.
 
 ## 📚 Contexto
 
@@ -44,6 +44,9 @@ O destaque vai para o **minijogo de roupas**, que apresenta **3 fases com dificu
 <p align="center">
   <img src="assets/images/jogoRoupas/Tela_Jogo_2.jpeg" width="300" alt="Minijogo de roupas">
 </p>
+
+📲 Baixe agora na Play Store:  
+[Jornada do Bem na Google Play](https://play.google.com/store/apps/details?id=br.edu.unisagrado.jornadadobem&utm_source=latam_Med)
 
 ## 👤 Autor
 
