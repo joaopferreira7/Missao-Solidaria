@@ -35,15 +35,16 @@ O destaque vai para o **minijogo de roupas**, que apresenta **3 fases com dificu
 
 ## 🖼️ Imagens
 
-### Tela Inicial
-<p align="center">
-  <img src="assets/images/TelaInicial.png" width="400" alt="Tela inicial do jogo">
-</p>
-
-### Minijogo de Roupas
-<p align="center">
-  <img src="assets/images/jogoRoupas/fundo_jogoRoupas.jpeg" width="400" alt="Minijogo de roupas">
-</p>
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <div style="text-align: center;">
+    <img src="assets/images/TelaInicial.png" width="300" alt="Tela inicial do jogo">
+    <p><strong>Tela Inicial</strong></p>
+  </div>
+  <div style="text-align: center;">
+    <img src="assets/images/jogoRoupas/fundo_jogoRoupas.jpeg" width="300" alt="Minijogo de roupas">
+    <p><strong>Minijogo de Roupas</strong></p>
+  </div>
+</div>
 
 ## 👤 Autor
 
