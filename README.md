@@ -50,7 +50,7 @@ O destaque vai para o **minijogo de roupas**, que apresenta **3 fases com dificu
 
 ## 👤 Autor
 
-Desenvolvido por **Heitor Lupino**  
+Desenvolvido por **Heitor Lupino, João Pedro Ferreira**  
 Estudante de Ciência da Computação na [UNISAGRADO](https://unisagrado.edu.br)
 
 🔗 [LinkedIn](https://www.linkedin.com/in/heitor-lupino-b580562b5)  
